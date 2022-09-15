@@ -10,6 +10,7 @@ import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import SignIn from "./components/pages/SignIn";
 import Products from "./components/pages/Products";
+import Footer from "./components/footer/Footer";
 
 interface AppProps {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -42,6 +43,7 @@ class AppContainer extends Component<AppProps, AppState> {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="*" element={<Home />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     );
   }

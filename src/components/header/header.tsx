@@ -1,7 +1,7 @@
 import routing from "@/utils/routing";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import Dropdown from "../dropdown/Dropwon";
+import Dropdown from "../dropdown/Dropdown";
 import { Bars, Nav, NavLink, NavMenu, NavLinkLogo } from "./header.style";
 
 function NavBar() {

@@ -30,13 +30,13 @@ export const Row = styled.div`
 `;
 
 export const Link = styled.a`
-  color: #fff;
+  /* color: #fff;
   font-size: 18px;
   text-decoration: none;
 
   &:hover {
     transition: 200ms ease-in;
-  }
+  } */
 `;
 
 export const Title = styled.p`

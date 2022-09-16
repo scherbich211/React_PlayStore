@@ -38,12 +38,13 @@ module.exports = {
     // "react/jsx-max-props-per-line": [1, { maximum: 1 }], //it doesn't work with prettier, you can remove prettier from rules: 'prettier/prettier'...
     // "react/jsx-first-prop-new-line": [1, "multiline"], //it doesn't work with prettier, you can remove prettier from rules: 'prettier/prettier'...
     "react/prop-types": 0,
+    "react/function-component-definition": [2, { namedComponents: ["function-declaration", "arrow-function"] }],
     "react/prefer-stateless-function": 0,
     "react/react-in-jsx-scope": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-curly-newline": 0, // it conflicts with prettier
     "react/jsx-wrap-multilines": ["error", { arrow: true, return: true, declaration: true }],
-    "react/function-component-definition": [2, { namedComponents: "function-declaration" }],
+    "react/require-default-props": "off",
 
     "prettier/prettier": ["error"],
 

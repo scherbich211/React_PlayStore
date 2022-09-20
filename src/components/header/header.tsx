@@ -1,7 +1,7 @@
 import routing from "@/utils/routing";
 import { useState } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
-import Dropdown from "../dropdown/Dropdown";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import Dropdown from "../Dropdown/Dropdown";
 import { Bars, Nav, NavLink, NavMenu, NavLinkLogo } from "./header.style";
 
 function NavBar() {
@@ -44,7 +44,7 @@ function NavBar() {
               <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <NavLink to={el.route} onClick={closeMobileMenu}>
                   {el.name}
-                  <AiFillCaretDown />
+                  {dropdown ? <AiFillCaretUp /> : <AiFillCaretDown />}
                 </NavLink>
                 {dropdown && <Dropdown />}
               </div>

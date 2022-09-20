@@ -1,8 +1,9 @@
+import colors from "@/styles/colors";
 import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 10px 30px 30px;
-  background: #000;
+  background: ${colors.BLACK};
 
   @media (max-width: 1000px) {
     padding: 10px 20px 30px;
@@ -41,7 +42,7 @@ export const Link = styled.a`
 
 export const Title = styled.p`
   font-size: 20px;
-  color: #fff;
+  color: ${colors.WHITE};
   font-weight: bold;
 `;
 

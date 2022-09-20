@@ -1,3 +1,4 @@
+import colors from "@/styles/colors";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -6,11 +7,11 @@ interface IDropdown {
 }
 export const DropdownWrapper = styled.div<IDropdown>`
   display: block;
-  background: red;
   width: 200px;
   position: absolute;
   list-style: none;
   text-align: start;
+  z-index: 10;
   @media screen and (max-width: 960px) {
     .fa-caret-down {
       display: none;
@@ -25,9 +26,9 @@ export const DropdownLinkWrapper = styled(Link)`
   text-decoration: none;
   color: #fff;
   padding: 16px;
-  background: #1888ff;
+  background: ${colors.BLACK};
   cursor: pointer;
   :hover {
-    background: #5cabff;
+    background: ${colors.BLACK_ACTIVE};
   }
 `;

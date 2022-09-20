@@ -4,13 +4,13 @@ import "./styles/main.scss";
 import { Component } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from "./components/header/header";
+import NavBar from "./components/Header/Header";
 import SignUp from "./components/pages/SignUp";
-import Home from "./components/pages/Home";
+import Home from "./components/pages/Home/Home";
 import About from "./components/pages/About";
 import SignIn from "./components/pages/SignIn";
 import Products from "./components/pages/Products";
-import Footer from "./components/footer/Footer";
+import Footer from "./components/Footer/Footer";
 import ErrorBoundary from "./sharedScreens/ErrorBounbary";
 
 interface AppProps {

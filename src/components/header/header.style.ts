@@ -1,3 +1,4 @@
+import colors from "@/styles/colors";
 import { FaBars } from "react-icons/fa";
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
@@ -7,7 +8,7 @@ interface INavMenu {
 }
 
 export const Nav = styled.nav`
-  background: #000;
+  background: ${colors.BLACK};
   height: 70px;
   display: flex;
   justify-content: space-between;
@@ -27,7 +28,7 @@ export const NavMenu = styled.div<INavMenu>`
 `;
 
 export const NavLink = styled(Link)`
-  color: #fff;
+  color: ${colors.WHITE};
   display: flex;
   text-decoration: none;
   padding: 0 1rem;
@@ -39,12 +40,12 @@ export const NavLink = styled(Link)`
   justify-content: center;
   cursor: pointer;
   &.active {
-    background-color: #2b252e;
-    border-bottom: 7px solid purple;
+    background-color: ${colors.BLACK_ACTIVE};
+    border-bottom: 7px solid ${colors.PURPURE};
   }
 `;
 export const NavLinkLogo = styled(Link)`
-  color: #fff;
+  color: ${colors.WHITE};
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -55,7 +56,7 @@ export const NavLinkLogo = styled(Link)`
 
 export const Bars = styled(FaBars)`
   display: none;
-  color: #fff;
+  color: ${colors.WHITE};
   @media screen and (max-width: 768px) {
     display: block;
     position: absolute;

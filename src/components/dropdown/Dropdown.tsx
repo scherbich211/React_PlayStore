@@ -1,24 +1,7 @@
-import React, { useState } from "react";
+import { MenuItems } from "@/utils/routing";
+import { useState } from "react";
 import * as S from "./dropdown.style";
 
-export const MenuItems = [
-  {
-    title: "Marketing",
-    path: "/marketing",
-  },
-  {
-    title: "Consulting",
-    path: "/consulting",
-  },
-  {
-    title: "Design",
-    path: "/design",
-  },
-  {
-    title: "Development",
-    path: "/development",
-  },
-];
 function Dropdown() {
   const [click, setClick] = useState(false);
 
@@ -36,7 +19,7 @@ function Dropdown() {
       show={click}
     >
       {MenuItems.map((item, index) => (
-        <S.DropdownLinkWrapper to={item.path} onClick={() => setClick(false)}>
+        <S.DropdownLinkWrapper to={item.path} onClick={() => setClick(false)} key={index.toString() + item.title}>
           {item.title}
         </S.DropdownLinkWrapper>
       ))}

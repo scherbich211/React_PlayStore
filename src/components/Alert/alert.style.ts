@@ -76,7 +76,11 @@ export const TextAlert = styled.span`
 `;
 
 export const WrapperAlert = styled.div<IWrapperAlert>`
-  position: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
   padding: 1rem 1rem;
   margin-bottom: 1rem;
   border: 1px solid;
@@ -85,4 +89,13 @@ export const WrapperAlert = styled.div<IWrapperAlert>`
   color: ${(props) => getTypeColor(props.type)};
   background-color: ${(props) => getTypeBackColor(props.type)};
   border-color: ${(props) => getTypeBorderColor(props.type)};
+  animation: alert-box 1s ease;
+  @keyframes alert-box {
+    0% {
+      top: -10%;
+    }
+    100% {
+      top: 0%;
+    }
+  }
 `;

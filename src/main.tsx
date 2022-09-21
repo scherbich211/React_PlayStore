@@ -11,7 +11,7 @@ import About from "./components/pages/About";
 import SignIn from "./components/pages/SignIn";
 import Products from "./components/pages/Products";
 import Footer from "./components/Footer/Footer";
-import ErrorBoundary from "./sharedScreens/ErrorBounbary";
+import ErrorBoundary from "./sharedScreens/ErrorBoundary/ErrorBounbary";
 
 interface AppProps {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -40,7 +40,7 @@ class AppContainer extends Component<AppProps, AppState> {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/products" element={<Products />} />
+            <Route path="/products/:name" element={<Products />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="*" element={<Home />} />

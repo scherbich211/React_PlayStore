@@ -5,7 +5,7 @@ const routing = [
   },
   {
     name: "Products",
-    route: "/products",
+    route: "/products/default",
   },
   {
     name: "About",

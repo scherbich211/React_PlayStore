@@ -36,7 +36,9 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return <Alert type="error" message={this.showText()} handle={() => redirect("/home")} />;
+      return (
+        <Alert type="error" message={this.showText()} handle={() => redirect("/home")} show={this.state.hasError} />
+      );
     }
     return this.props.children;
   }

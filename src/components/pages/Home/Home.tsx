@@ -12,19 +12,17 @@ export const homeComponent: THomeComponent[] = [
   { title: "Categories", renderComponent: <CategoriesList /> },
   { title: "New games", renderComponent: <GameList /> },
 ];
-function Home() {
-  return (
-    <S.Container>
-      <SearchBar />
-      {homeComponent.map((el) => (
-        <S.Wrapper key={el.title}>
-          <S.Title>{el.title}</S.Title>
-          <S.Underline />
-          {el.renderComponent}
-        </S.Wrapper>
-      ))}
-    </S.Container>
-  );
-}
+const Home = () => (
+  <S.Container>
+    <SearchBar />
+    {homeComponent.map((el) => (
+      <S.Wrapper key={el.title}>
+        <S.Title>{el.title}</S.Title>
+        <S.Underline />
+        {el.renderComponent}
+      </S.Wrapper>
+    ))}
+  </S.Container>
+);
 
 export default Home;

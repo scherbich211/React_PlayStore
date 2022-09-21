@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { IAlertTypes, TextAlert, WrapperAlert } from "./alert.style";
 
 interface IProps {
@@ -6,11 +6,12 @@ interface IProps {
   type: IAlertTypes;
   message: string;
   handle?: () => void;
+  show: boolean;
 }
 
 function Alert(props: IProps) {
-  const { children, type, message, handle } = props;
-  const [isShow, setIsShow] = useState(true);
+  const { children, type, message, handle, show } = props;
+  const [isShow, setIsShow] = useState(show);
 
   const renderElAlert = () => children && React.cloneElement(children);
 
@@ -19,6 +20,10 @@ function Alert(props: IProps) {
     setIsShow(false);
     handle && handle();
   };
+
+  useEffect(() => {
+    setIsShow(show);
+  }, [show]);
 
   return (
     <WrapperAlert show={isShow} type={type}>

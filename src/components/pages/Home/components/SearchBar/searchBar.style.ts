@@ -28,3 +28,16 @@ export const SearchPanel = styled.input`
     border-color: ${colors.PURPURE};
   }
 `;
+
+export const StyledList = styled.div`
+  width: 76%;
+  z-index: 2;
+  position: absolute;
+  margin-top: 2.7rem;
+  border: 1px solid none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: ${colors.BLACK};
+  display: flex;
+  flex-direction: column;
+`;

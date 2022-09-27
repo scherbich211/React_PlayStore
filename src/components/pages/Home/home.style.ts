@@ -1,12 +1,11 @@
 import colors from "@/styles/colors";
 import styled from "styled-components";
-import background from "../../../assets/images/background.png";
 
 export const Container = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  background-image: url(${background});
+  background-image: url("https://images4.alphacoders.com/119/1194756.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding-block: 4rem;

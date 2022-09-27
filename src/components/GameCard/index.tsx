@@ -1,9 +1,9 @@
 import { Star } from "@/assets/svg/SVGIcons";
-import { IGamesData } from "../pages/Home/components/GameList/constants";
+import { IGameData } from "@/types/user";
 import * as S from "./gameCard.style";
 
 interface IProps {
-  card: IGamesData;
+  card: IGameData;
   handlePress: () => void;
 }
 
@@ -27,7 +27,7 @@ const GameCard: React.FC<IProps> = (props) => {
         </S.Front>
         <S.Back>
           <S.BackText>{descriptionBack}</S.BackText>
-          <S.BackTextAge>{age}</S.BackTextAge>
+          <S.BackTextAge>{age}+</S.BackTextAge>
           <S.BackButton onClick={() => props.handlePress()}>
             <span>Add to cart</span>
           </S.BackButton>

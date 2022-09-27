@@ -23,15 +23,15 @@ const routing = [
 export const MenuItems = [
   {
     title: "PC",
-    path: "/pc",
+    path: "/products/pc",
   },
   {
     title: "Playstation 5",
-    path: "/playstation",
+    path: "/products/playstation",
   },
   {
     title: "XBox One",
-    path: "/xbox",
+    path: "/products/xbox",
   },
 ];
 export default routing;

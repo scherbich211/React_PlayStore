@@ -1,17 +1,21 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
+import nodePath from "path";
+import { IGamesData } from "@/types/user";
 
-export default webpackMockServer.add((app, helper) => {
-  app.get("/testMock", (_req, res) => {
-    const response = {
-      id: helper.getUniqueIdInt(),
-      randomInt: helper.getRandomInt(),
-      lastDate: new Date(),
-    };
-
-    res.json(response);
+export default webpackMockServer.add((app) => {
+  const resolvedPath = require.resolve(nodePath.join(__dirname, "./response.json"));
+  delete require.cache[resolvedPath];
+  const data: IGamesData = require(resolvedPath);
+  app.get("/getTopProducts", (_req, res) => {
+    res.json(data);
   });
-  app.post("/testPostMock", (req, res) => {
-    res.json({ body: req.body || null, success: true });
+  app.get("/search/:text", (req, res) => {
+    const { text } = req.params;
+    const filteredArr = data.games.filter((el) => el.name.toLowerCase().startsWith(text.toLowerCase()));
+    res.json(filteredArr);
   });
 });

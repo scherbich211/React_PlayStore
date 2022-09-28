@@ -21,11 +21,12 @@ const categoriesListData = [
 const CategoriesList = () => (
   <WrapperList>
     {categoriesListData.map((el) => (
-      <ListItem key={el.name}>
+      <ListItem key={el.name} onClick={() => console.log(1)}>
         <Img src={el.source} />
         <h1>{el.name}</h1>
       </ListItem>
     ))}
   </WrapperList>
 );
+
 export default CategoriesList;

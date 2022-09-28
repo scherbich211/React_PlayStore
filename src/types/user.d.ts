@@ -8,6 +8,14 @@ export interface IGameData {
   permission: Array<"PC" | "Platstation" | "XBox">;
 }
 
-export interface IGamesData {
+export interface IUser {
+  id: number;
+  login: string;
+  password: string;
+}
+
+export interface responceJSON {
   games: Array<IGameData>;
+  users: Array<IUser>;
+  authorized: number;
 }

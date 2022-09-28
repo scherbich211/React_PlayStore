@@ -24,7 +24,7 @@ const GameList = () => {
       <WrapperList>
         {!isLoading && data ? (
           <>
-            {data.games.slice(0, 3).map((el) => (
+            {data.slice(0, 3).map((el) => (
               <GameCard card={el} key={el.name} handlePress={handlePress} />
             ))}
           </>

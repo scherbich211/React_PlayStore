@@ -27,5 +27,7 @@
       "age": "12",
       "permission": ["PC"]
     }
-  ]
+  ],
+  "authorized": -1,
+  "users": []
 }

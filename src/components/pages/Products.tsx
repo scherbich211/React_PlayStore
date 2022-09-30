@@ -2,6 +2,7 @@ import React from "react";
 
 function Products() {
   function getValueAtIndex(index: number) {
+    console.log(window.location.href);
     const str = window.location.href;
     return str.replace(/^\/+/g, "").split("/")[index];
   }

@@ -111,12 +111,15 @@
     "webpack-mock-server": "^1.0.5"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.8",
     "@types/body-parser": "^1.19.2",
     "axios": "^0.27.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.36.1",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   }
 }

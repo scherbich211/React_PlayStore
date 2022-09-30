@@ -14,17 +14,16 @@ export default webpackMockServer.add((app) => {
 
   const resolvedPath = require.resolve(nodePath.join(__dirname, "./response.json"));
   delete require.cache[resolvedPath];
-  const data: responceJSON = require(resolvedPath);
 
   const fs = require("fs");
   const content: responceJSON = JSON.parse(fs.readFileSync("response.json", "utf8"));
 
   app.get("/getTopProducts", (_req, res) => {
-    res.json(data.games);
+    res.json(content.games);
   });
   app.get("/search/:text", (req, res) => {
     const { text } = req.params;
-    const { games } = data;
+    const { games } = content;
     const filteredArr = games.filter((el) => el.name.toLowerCase().startsWith(text.toLowerCase()));
     res.json(filteredArr);
   });
@@ -61,11 +60,11 @@ export default webpackMockServer.add((app) => {
       res.status(400).send({ message: `Server error` });
     }
   });
-  app.post("auth/logOut", (_req, res) => {
+  app.post("/auth/logOut", (_req, res) => {
     try {
       content.authorized = -1;
       fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
-      res.status(201);
+      res.status(200);
     } catch (error) {
       res.status(400).send({ message: `Server error` });
     }

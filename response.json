@@ -4,30 +4,55 @@
       "id": 0,
       "name": "Assasin",
       "price": "29.99",
-      "route": "https://avatars.mds.yandex.net/get-images-cbir/936239/usC3Mfm24TlQPn0JKQ6NGA6016/ocr",
+      "route": "https://img1.akspic.ru/crops/5/7/1/9/4/149175/149175-kompyuternaya_igra-bitva-graficeskij_dizajn-vizualnoe_iskusstvo-assassins_krid_ii-1440x2560.jpg",
       "descriptionBack": "The word assassin, pronounced 'uh-SASS-in' describes a person who murders a prominent person, like a political or religious leader. Often, this person is hired to kill, though he or she might act on personal motivations.",
       "age": "12",
-      "permission": ["PC", "XBox"]
+      "permission": [
+        "PC",
+        "XBox"
+      ]
     },
     {
       "id": 1,
       "name": "Cyberpunk",
       "price": "29.99",
-      "route": "https://avatars.mds.yandex.net/get-images-cbir/988521/30-Cq1bs5HPL6zNIMqTLzg7306/ocr",
+      "route": "https://img2.akspic.ru/crops/9/4/4/6/2/126449/126449-temnota-gorodskoj_rajon-gorod-metropoliya-zdanie-1440x2560.jpg",
       "descriptionBack": "In science fiction circles, 'cyberpunk' is a genre that often features countercultural antiheroes trapped in a dehumanizing high-tech future. Its roots extend back to the technical fiction of the 1940s and 50s, but it was years before it matured.",
       "age": "12",
-      "permission": ["Platstation", "PC", "XBox"]
+      "permission": [
+        "Platstation",
+        "PC",
+        "XBox"
+      ]
     },
     {
       "id": 2,
       "name": "League of Legends",
       "price": "29.99",
-      "route": "https://avatars.mds.yandex.net/get-images-cbir/1588122/vm42ZXbW2EHCj0ff75xXYA7333/ocr",
+      "route": "https://img3.akspic.ru/crops/3/1/2/6/6/166213/166213-vanda_maximoff-wandavision-videnie-komiksy_marvel-supergeroj-1440x2560.jpg",
       "descriptionBack": "What is League of Legends? League of Legends is a team-based strategy game where two teams of five powerful champions face off to destroy the others base. Choose from over 140 champions to make epic plays, secure kills, and take down towers as you battle your way to victory.",
       "age": "12",
-      "permission": ["PC"]
+      "permission": [
+        "PC"
+      ]
     }
   ],
-  "authorized": -1,
-  "users": []
+  "authorized": 1,
+  "users": [
+    {
+      "id": 0,
+      "login": "SASHA",
+      "password": "1234567bB!"
+    },
+    {
+      "id": 1,
+      "login": "admin",
+      "password": "1234567bB!"
+    },
+    {
+      "id": 2,
+      "login": "admin1",
+      "password": "1234567bB!"
+    }
+  ]
 }

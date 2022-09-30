@@ -1,25 +1,10 @@
-const routing = [
-  {
-    name: "Home",
-    route: "/",
-  },
-  {
-    name: "Products",
-    route: "/products/default",
-  },
-  {
-    name: "About",
-    route: "/about",
-  },
-  {
-    name: "Sign In",
-    route: "sign-in",
-  },
-  {
-    name: "Sign Up",
-    route: "sign-up",
-  },
-];
+export enum Route {
+  Home = "/",
+  Products = "/products/default",
+  About = "/about",
+  Profile = "/profile",
+}
+
 export const MenuItems = [
   {
     title: "PC",
@@ -34,4 +19,3 @@ export const MenuItems = [
     path: "/products/xbox",
   },
 ];
-export default routing;

@@ -26,7 +26,21 @@ const useSignInMutation = () =>
       body,
     }),
   });
-const useIsAuthorizedMutation = () => useRequestQuery<boolean, string>({ url: "auth/", method: "get" });
+const useIsAuthorizedQuery = () => useRequestQuery<boolean, string>({ url: "auth/", method: "get" });
+const useLogOutMutation = () =>
+  useRequestMutation<string, string>({
+    query: () => ({
+      url: "auth/logOut/",
+      method: "post",
+    }),
+  });
 
 // eslint-disable-next-line import/prefer-default-export
-export { useGetGamesMutation, useSearchMutation, useSignUpMutation, useSignInMutation, useIsAuthorizedMutation };
+export {
+  useGetGamesMutation,
+  useSearchMutation,
+  useSignUpMutation,
+  useSignInMutation,
+  useIsAuthorizedQuery,
+  useLogOutMutation,
+};

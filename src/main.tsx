@@ -1,55 +1,40 @@
 import "./styles/main.scss";
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
 // start-path is 'images' because we have an alias 'images' in webpack.common.js
-import { Component } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import NavBar from "./components/Header/Header";
-import SignUp from "./components/pages/SignUp";
 import Home from "./components/pages/Home/Home";
 import About from "./components/pages/About";
-import SignIn from "./components/pages/SignIn";
 import Products from "./components/pages/Products";
 import Footer from "./components/Footer/Footer";
 import ErrorBoundary from "./sharedScreens/ErrorBoundary/ErrorBounbary";
+import Modal from "./components/Modal";
+import Authorization from "./components/Authorization";
 
-interface AppProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  nothing: boolean;
-}
+const AppContainer = () => {
+  const [activeModal, setActiveModal] = useState(false);
+  const [modal, setModal] = useState("");
 
-interface AppState {
-  title: string;
-}
+  return (
+    <ErrorBoundary>
+      <BrowserRouter>
+        <NavBar setActiveModal={setActiveModal} setModal={setModal} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/products/:name" element={<Products />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+        <Footer />
+        <Modal active={activeModal}>
+          {modal === "signIn" && <Authorization setActiveModal={setActiveModal} signUp={false} />}
+          {modal === "signUp" && <Authorization setActiveModal={setActiveModal} signUp />}
+        </Modal>
+      </BrowserRouter>
+    </ErrorBoundary>
+  );
+};
 
-class AppContainer extends Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    // test class-dead-code
-    const goExlcude = true;
-    if (!goExlcude) {
-      console.warn("class-dead-code doesn't work");
-    }
-  }
-
-  render() {
-    return (
-      <ErrorBoundary>
-        <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/products/:name" element={<Products />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </ErrorBoundary>
-    );
-  }
-}
-
-ReactDom.render(<AppContainer nothing={false} />, document.getElementById("app"));
+ReactDom.render(<AppContainer />, document.getElementById("app"));

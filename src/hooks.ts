@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
-export default function useDebounce(value: string, delay: number) {
+export const useVisiability = (initialState: boolean): [boolean, () => void] => {
+  const [isVisible, setVisibility] = useState(initialState);
+  const visible = useCallback(() => setVisibility(!isVisible), [isVisible]);
+  return [isVisible, visible];
+};
+
+export function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {

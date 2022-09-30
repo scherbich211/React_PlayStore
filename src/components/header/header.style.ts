@@ -3,10 +3,6 @@ import { FaBars } from "react-icons/fa";
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
-interface INavMenu {
-  isActive: boolean;
-}
-
 export const Nav = styled.nav`
   background: ${colors.BLACK};
   height: 70px;
@@ -17,7 +13,7 @@ export const Nav = styled.nav`
   align-items: center;
 `;
 
-export const NavMenu = styled.div<INavMenu>`
+export const NavMenu = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
@@ -27,7 +23,7 @@ export const NavMenu = styled.div<INavMenu>`
   }
 `;
 
-export const NavLink = styled(Link)`
+export const NavLink = styled.div`
   color: ${colors.WHITE};
   display: flex;
   text-decoration: none;
@@ -44,6 +40,7 @@ export const NavLink = styled(Link)`
     border-bottom: 7px solid ${colors.PURPURE};
   }
 `;
+
 export const NavLinkLogo = styled(Link)`
   color: ${colors.WHITE};
   display: flex;

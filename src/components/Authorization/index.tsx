@@ -1,11 +1,11 @@
 import { useVisiability } from "@/hooks";
-import React, { useEffect } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSignInMutation, useSignUpMutation } from "@/api/user";
 import { IUser } from "@/types/user";
+import { useAuth } from "@/AuthProvider";
 import CustomInput from "../CustomInput";
 import * as S from "./authorization.style";
 
@@ -38,12 +38,10 @@ const schhemaSignIn = Yup.object().shape({
 });
 
 const Authorization: React.FC<IProps> = (props) => {
+  const { onLogin, onSingUp } = useAuth();
   const { setActiveModal, signUp } = props;
   const [isVisible, visible] = useVisiability(true);
   const [isVisibleConfirm, visibleConfirm] = useVisiability(true);
-
-  const [signUpMutation, { isLoading, isSuccess }] = useSignUpMutation();
-  const [signInMutation, { isLoading: isSignInLoading, isSuccess: isSingInSuccess }] = useSignInMutation();
 
   const {
     control,
@@ -54,20 +52,6 @@ const Authorization: React.FC<IProps> = (props) => {
     mode: "onChange",
   });
 
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("DONE SIGN UP");
-      setActiveModal(false);
-    }
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (isSingInSuccess) {
-      console.log("DONE SIGN IN");
-      setActiveModal(false);
-    }
-  }, [isSingInSuccess]);
-
   const handleSubmit = () => {
     const user: IUser = {
       id: 0,
@@ -75,9 +59,9 @@ const Authorization: React.FC<IProps> = (props) => {
       password: getValues("password"),
     };
     if (signUp) {
-      signUpMutation(user);
+      onSingUp && onSingUp(user);
     } else {
-      signInMutation(user);
+      onLogin && onLogin(user);
     }
   };
 

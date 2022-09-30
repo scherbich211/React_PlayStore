@@ -60,11 +60,11 @@ export default webpackMockServer.add((app) => {
       res.status(400).send({ message: `Server error` });
     }
   });
-  app.post("auth/logOut", (_req, res) => {
+  app.post("/auth/logOut", (_req, res) => {
     try {
       content.authorized = -1;
       fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
-      res.status(201);
+      res.status(200);
     } catch (error) {
       res.status(400).send({ message: `Server error` });
     }

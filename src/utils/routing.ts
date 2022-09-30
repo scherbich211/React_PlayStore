@@ -2,6 +2,7 @@ export enum Route {
   Home = "/",
   Products = "/products/default",
   About = "/about",
+  Profile = "/profile",
 }
 
 export const MenuItems = [

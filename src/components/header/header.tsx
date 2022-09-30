@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { AiFillCaretDown, AiFillCaretUp, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
+import { RiLogoutBoxRFill } from "react-icons/ri";
+import { useAuth } from "@/AuthProvider";
 import { Route } from "@/utils/routing";
-import { useIsAuthorizedQuery } from "@/api/user";
-import { Bars, Nav, NavLink, NavMenu, NavLinkLogo } from "./header.style";
+import colors from "@/styles/colors";
+import { Bars, Nav, NavLink, NavMenu, NavLinkLogo, NavButton } from "./header.style";
 import Dropdown from "../Dropdown/Dropdown";
 
 interface IProps {
@@ -12,26 +13,10 @@ interface IProps {
 }
 
 const NavBar: React.FC<IProps> = (props) => {
-  const history = useNavigate();
-
+  const { authorized, onLogout, user } = useAuth();
   const { setActiveModal, setModal } = props;
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-  const [authorized, setAuthorized] = useState(false);
-
-  const { isSuccess, data, refetch } = useIsAuthorizedQuery();
-
-  useEffect(() => {
-    if (!authorized) {
-      refetch();
-    }
-  }, [window.location.href]);
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      setAuthorized(data);
-    }
-  }, [isSuccess]);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
@@ -39,35 +24,25 @@ const NavBar: React.FC<IProps> = (props) => {
   };
 
   const onMouseEnter = () => {
-    if (authorized) {
-      if (window.innerWidth < 960) {
-        setDropdown(false);
-      } else {
-        setDropdown(true);
-      }
+    if (window.innerWidth < 960) {
+      setDropdown(false);
+    } else {
+      setDropdown(true);
     }
   };
 
   const onMouseLeave = () => {
-    if (authorized) {
-      if (window.innerWidth < 960) {
-        setDropdown(false);
-      } else {
-        setDropdown(false);
-      }
+    if (window.innerWidth < 960) {
+      setDropdown(false);
+    } else {
+      setDropdown(false);
     }
   };
 
-  function delayAndGo(e: React.MouseEvent<HTMLDivElement, MouseEvent>, route: string) {
-    closeMobileMenu();
-    e.preventDefault();
-    if (authorized) {
-      history(route);
-    } else {
-      setModal("signIn");
-      setActiveModal(true);
-    }
-  }
+  const chooseModal = (value: string) => {
+    setActiveModal(true);
+    setModal(value);
+  };
 
   return (
     <Nav>
@@ -76,38 +51,40 @@ const NavBar: React.FC<IProps> = (props) => {
       </NavLinkLogo>
       <Bars onClick={handleClick} />
       <NavMenu>
-        <NavLink
-          onClick={() => {
-            closeMobileMenu();
-            history(Route.Home);
-          }}
-        >
+        <NavLink to={Route.Home} onClick={closeMobileMenu}>
           Home
         </NavLink>
         <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          <NavLink onClick={(e) => delayAndGo(e, Route.Products)}>
+          <NavLink to={Route.Products} onClick={closeMobileMenu}>
             Products
             {dropdown ? <AiFillCaretUp /> : <AiFillCaretDown />}
           </NavLink>
           {dropdown && <Dropdown />}
         </div>
-        <NavLink onClick={(e) => delayAndGo(e, Route.About)}>About</NavLink>
-        <NavLink
-          onClick={() => {
-            setActiveModal(true);
-            setModal("signIn");
-          }}
-        >
-          Sign In
+        <NavLink to={Route.About} onClick={closeMobileMenu}>
+          About
         </NavLink>
-        <NavLink
-          onClick={() => {
-            setActiveModal(true);
-            setModal("signUp");
-          }}
-        >
-          Sign Up
-        </NavLink>
+        {authorized ? (
+          <>
+            <NavLink to={Route.Profile} onClick={closeMobileMenu}>
+              <div style={{ flexDirection: "row" }}>
+                <AiOutlineUser style={{ marginRight: "5px" }} size={28} />
+                {user?.login}
+              </div>
+            </NavLink>
+            <NavButton>
+              <AiOutlineShoppingCart size={28} color={colors.GRAY} />
+            </NavButton>
+            <NavButton onClick={onLogout}>
+              <RiLogoutBoxRFill size={28} color={colors.GRAY} />
+            </NavButton>
+          </>
+        ) : (
+          <>
+            <NavButton onClick={() => chooseModal("signIn")}>Sign In</NavButton>
+            <NavButton onClick={() => chooseModal("signUp")}>Sign Up</NavButton>
+          </>
+        )}
       </NavMenu>
     </Nav>
   );

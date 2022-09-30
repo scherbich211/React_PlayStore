@@ -27,6 +27,8 @@ const useSignInMutation = () =>
     }),
   });
 const useIsAuthorizedQuery = () => useRequestQuery<boolean, string>({ url: "auth/", method: "get" });
+const useUserQuery = () => useRequestQuery<IUser, string>({ url: "auth/user", method: "get" });
+
 const useLogOutMutation = () =>
   useRequestMutation<string, string>({
     query: () => ({
@@ -43,4 +45,5 @@ export {
   useSignInMutation,
   useIsAuthorizedQuery,
   useLogOutMutation,
+  useUserQuery,
 };

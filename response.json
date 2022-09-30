@@ -48,6 +48,11 @@
       "id": 1,
       "login": "admin",
       "password": "1234567bB!"
+    },
+    {
+      "id": 2,
+      "login": "admin1",
+      "password": "1234567bB!"
     }
   ]
 }

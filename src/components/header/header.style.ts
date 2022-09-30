@@ -23,7 +23,7 @@ export const NavMenu = styled.div`
   }
 `;
 
-export const NavLink = styled.div`
+export const NavLink = styled(Link)`
   color: ${colors.WHITE};
   display: flex;
   text-decoration: none;
@@ -39,6 +39,19 @@ export const NavLink = styled.div`
     background-color: ${colors.BLACK_ACTIVE};
     border-bottom: 7px solid ${colors.PURPURE};
   }
+`;
+export const NavButton = styled.div`
+  color: ${colors.WHITE};
+  display: flex;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  min-height: 70px;
+  font-size: 17px;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `;
 
 export const NavLinkLogo = styled(Link)`

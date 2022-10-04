@@ -1,7 +1,7 @@
 import { useSearchMutation } from "@/api/user";
 import Loader from "@/components/Loader/loader.styles";
 import { useDebounce } from "@/hooks";
-import { IGameData } from "@/types/user";
+import { IGameData } from "@/types/mockStore";
 import { useEffect, useState } from "react";
 import { SearchBlock, SearchPanel, StyledList } from "./searchBar.style";
 import { NoElements, ResultElements } from "./searchBarComponents";

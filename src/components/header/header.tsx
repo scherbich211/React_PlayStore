@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import { useAuth } from "@/AuthProvider";
 import { Route } from "@/utils/routing";
 import colors from "@/styles/colors";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
+import { useLogOutMutation } from "@/api/user";
+import { changeLogOut } from "@/redux/reducers/user";
+import { useNavigate } from "react-router-dom";
 import { Bars, Nav, NavLink, NavMenu, NavLinkLogo, NavButton } from "./header.style";
 import Dropdown from "../Dropdown/Dropdown";
 
-interface IProps {
-  setActiveModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setModal: React.Dispatch<React.SetStateAction<string>>;
-}
+const NavBar: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-const NavBar: React.FC<IProps> = (props) => {
-  const { authorized, onLogout, user } = useAuth();
-  const { setActiveModal, setModal } = props;
+  const { user, isSignedIn } = useAppSelector((state) => state.user);
+
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+
+  const [clear] = useLogOutMutation();
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
@@ -40,8 +44,14 @@ const NavBar: React.FC<IProps> = (props) => {
   };
 
   const chooseModal = (value: string) => {
-    setActiveModal(true);
-    setModal(value);
+    dispatch(changeModalActive(true));
+    dispatch(changeModalType(value));
+  };
+
+  const handleLogOut = () => {
+    clear();
+    navigate(Route.Home);
+    dispatch(changeLogOut());
   };
 
   return (
@@ -64,7 +74,7 @@ const NavBar: React.FC<IProps> = (props) => {
         <NavLink to={Route.About} onClick={closeMobileMenu}>
           About
         </NavLink>
-        {authorized ? (
+        {isSignedIn ? (
           <>
             <NavLink to={Route.Profile} onClick={closeMobileMenu}>
               <div style={{ flexDirection: "row" }}>
@@ -75,7 +85,7 @@ const NavBar: React.FC<IProps> = (props) => {
             <NavButton>
               <AiOutlineShoppingCart size={28} color={colors.GRAY} />
             </NavButton>
-            <NavButton onClick={onLogout}>
+            <NavButton onClick={() => handleLogOut()}>
               <RiLogoutBoxRFill size={28} color={colors.GRAY} />
             </NavButton>
           </>

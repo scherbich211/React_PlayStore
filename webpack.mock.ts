@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import nodePath from "path";
-import { IUser, responceJSON } from "@/types/user";
+import { IUser, responceJSON } from "@/types/mockStore";
 
 export default webpackMockServer.add((app) => {
   // it resolves body

@@ -1,4 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
+import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./types/redux";
+
+export const useAppDispatch = (): AppDispatch => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useVisiability = (initialState: boolean): [boolean, () => void] => {
   const [isVisible, setVisibility] = useState(initialState);

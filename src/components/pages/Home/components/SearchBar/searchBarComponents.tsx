@@ -1,4 +1,4 @@
-import { IGameData } from "@/types/user";
+import { IGameData } from "@/types/mockStore";
 import React from "react";
 
 interface IResultElements {

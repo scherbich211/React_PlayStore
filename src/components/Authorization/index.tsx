@@ -1,18 +1,17 @@
-import { useVisiability } from "@/hooks";
-import React from "react";
+import { useAppDispatch, useAppSelector, useVisiability } from "@/hooks";
+import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IUser } from "@/types/user";
-import { useAuth } from "@/AuthProvider";
+import { IUser } from "@/types/mockStore";
+import { useSignInMutation, useSignUpMutation } from "@/api/user";
+import { changeModalActive } from "@/redux/reducers/modal";
+import { changeUser, changeUserIsSignedIn } from "@/redux/reducers/user";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Route } from "@/utils/routing";
 import CustomInput from "../CustomInput";
 import * as S from "./authorization.style";
-
-interface IProps {
-  setActiveModal: React.Dispatch<React.SetStateAction<boolean>>;
-  signUp: boolean;
-}
 
 type FormState = {
   login: string;
@@ -37,19 +36,34 @@ const schhemaSignIn = Yup.object().shape({
   password: Yup.string().required(),
 });
 
-const Authorization: React.FC<IProps> = (props) => {
-  const { onLogin, onSingUp } = useAuth();
-  const { setActiveModal, signUp } = props;
+const Authorization: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { type } = useAppSelector((state) => state.modal);
   const [isVisible, visible] = useVisiability(true);
   const [isVisibleConfirm, visibleConfirm] = useVisiability(true);
+
+  const dispatch = useAppDispatch();
+
+  const [signIn, { isSuccess: signInSucccess, data: signInData }] = useSignInMutation();
+  const [signUp, { isSuccess: signUpSucccess, data: signUpData }] = useSignUpMutation();
+
+  const signUpProp: boolean = type === "signUp";
 
   const {
     control,
     formState: { errors, isValid },
     getValues,
+    reset,
   } = useForm<FormState>({
-    resolver: yupResolver(signUp ? schemaSignUp : schhemaSignIn),
+    resolver: yupResolver(signUpProp ? schemaSignUp : schhemaSignIn),
     mode: "onChange",
+    defaultValues: {
+      login: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   const handleSubmit = () => {
@@ -58,18 +72,60 @@ const Authorization: React.FC<IProps> = (props) => {
       login: getValues("login"),
       password: getValues("password"),
     };
-    if (signUp) {
-      onSingUp && onSingUp(user);
+    if (signUpProp) {
+      signUp(user);
     } else {
-      onLogin && onLogin(user);
+      signIn(user);
     }
   };
+
+  useEffect(() => {
+    if (signInSucccess && signInData) {
+      dispatch(changeUserIsSignedIn(true));
+      dispatch(changeUser(signInData));
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      navigate((location.state?.from && location.state?.from?.pathname) || Route.Home);
+      dispatch(changeModalActive(false));
+      reset(
+        {},
+        {
+          keepErrors: false,
+          keepDirty: false,
+          keepIsSubmitted: false,
+          keepTouched: false,
+          keepIsValid: false,
+          keepSubmitCount: false,
+        }
+      );
+    }
+  }, [signInSucccess, signInData]);
+
+  useEffect(() => {
+    if (signUpSucccess && signUpData) {
+      dispatch(changeUserIsSignedIn(true));
+      dispatch(changeUser(signUpData));
+      navigate(Route.Profile);
+      dispatch(changeModalActive(false));
+      reset(
+        {},
+        {
+          keepErrors: false,
+          keepDirty: false,
+          keepIsSubmitted: false,
+          keepTouched: false,
+          keepIsValid: false,
+          keepSubmitCount: false,
+        }
+      );
+    }
+  }, [signUpSucccess, signUpData]);
 
   return (
     <>
       <S.RowWrapper style={{ marginBottom: "20px" }}>
         <S.Title>Authorization</S.Title>
-        <S.Close onClick={() => setActiveModal(false)}>&times;</S.Close>
+        <S.Close onClick={() => dispatch(changeModalActive(false))}>&times;</S.Close>
       </S.RowWrapper>
       <S.RowWrapper style={{ marginBottom: "30px" }}>
         <S.InputDefenition>Login</S.InputDefenition>
@@ -91,7 +147,7 @@ const Authorization: React.FC<IProps> = (props) => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <CustomInput
-              value={value === undefined ? value : value.trim()}
+              value={value === undefined ? value : value}
               onChange={onChange}
               type={isVisible ? "password" : "text"}
               right={isVisible ? <AiFillEyeInvisible size={28} /> : <AiFillEye size={28} />}
@@ -102,13 +158,13 @@ const Authorization: React.FC<IProps> = (props) => {
           name="password"
         />
       </S.RowWrapper>
-      {signUp && Boolean(errors.password) && (
+      {signUpProp && Boolean(errors.password) && (
         <S.HelperText error={Boolean(errors.password)}>
           Password must contain:{"\n"} &quot;a-z&quot;, &quot;A-Z&quot;, &quot;0-9&quot;, &quot;!@#$%^&*&quot;,
           &quot;min. 8 characters&quot;
         </S.HelperText>
       )}
-      {signUp && (
+      {signUpProp && (
         <>
           <S.RowWrapper style={{ marginBottom: "10px", marginTop: "20px" }}>
             <S.InputDefenition>Repeat password</S.InputDefenition>
@@ -127,7 +183,7 @@ const Authorization: React.FC<IProps> = (props) => {
               name="confirmPassword"
             />
           </S.RowWrapper>
-          {signUp && Boolean(errors.confirmPassword) && (
+          {signUpProp && Boolean(errors.confirmPassword) && (
             <S.HelperText error={Boolean(errors.confirmPassword)}>Both passwords must match.</S.HelperText>
           )}
         </>

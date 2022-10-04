@@ -1,4 +1,4 @@
-import { IGameData, IUser } from "@/types/user";
+import { IGameData, IUser } from "@/types/mockStore";
 import { useRequestMutation, useRequestQuery } from "./axiosHooks";
 
 const useGetGamesMutation = () => useRequestQuery<Array<IGameData>, string>({ url: "getTopProducts/", method: "get" });

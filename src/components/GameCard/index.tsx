@@ -1,5 +1,5 @@
 import { Star } from "@/assets/svg/SVGIcons";
-import { IGameData } from "@/types/user";
+import { IGameData } from "@/types/mockStore";
 import * as S from "./gameCard.style";
 
 interface IProps {

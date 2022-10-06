@@ -37,7 +37,7 @@
       ]
     }
   ],
-  "authorized": -1,
+  "authorized": 1,
   "users": [
     {
       "id": 0,
@@ -46,8 +46,10 @@
     },
     {
       "id": 1,
-      "login": "admin",
-      "password": "1234567bB!"
+      "login": "pidor",
+      "password": "1234567bB!1",
+      "description": "pidor",
+      "profileImage": "pidor"
     },
     {
       "id": 2,

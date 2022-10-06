@@ -25,6 +25,26 @@ export const Input = styled.input<IInput>`
     border-color: ${(props) => (props.error ? colors.RED : colors.PURPURE)};
   }
 `;
+export const InputArea = styled.textarea<IInput>`
+  margin-top: 2px;
+  min-height: 56px;
+  padding-inline: 15;
+  border: 2px solid;
+  border-color: ${(props) => (props.error ? colors.RED : colors.WHITE)};
+  background-color: transparent;
+  position: relative;
+  width: 100%;
+  border-radius: 15px;
+  min-height: 60;
+  display: flex;
+  outline: none;
+  color: ${colors.GRAY};
+  font-size: 16px;
+  padding-left: 10px;
+  :focus {
+    border-color: ${(props) => (props.error ? colors.RED : colors.PURPURE)};
+  }
+`;
 
 export const RightIcon = styled.div`
   position: absolute;
@@ -38,7 +58,6 @@ export const RightIcon = styled.div`
 export const InputWrapper = styled.div`
   position: relative;
   width: 100%;
-  border-radius: 15px;
   min-height: 60;
   display: flex;
 `;

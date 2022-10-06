@@ -30,10 +30,12 @@ export default webpackMockServer.add((app) => {
   app.put("/auth/signUp", (req, res) => {
     try {
       const { login, password } = req.body as IUser;
-      const newUser = {
+      const newUser: IUser = {
         id: content.users.length,
         login,
         password,
+        description: "",
+        profileImage: "",
       };
       content.users = [...content.users, newUser];
       content.authorized = newUser.id;
@@ -72,7 +74,38 @@ export default webpackMockServer.add((app) => {
   app.get("/auth", (_req, res) => {
     res.json(content.authorized !== -1);
   });
-  app.get("/auth/user", (_req, res) => {
+  app.get("/getProfile", (_req, res) => {
     res.json(content.users.filter((el) => el.id === content.authorized)[0]);
+  });
+  app.post("/saveProfile", (req, res) => {
+    try {
+      const { login, description, profileImage } = req.body as IUser;
+      const dataUser = content.users.filter((el) => el.id === content.authorized)[0];
+      const updateUser: IUser = {
+        id: dataUser.id,
+        login,
+        password: dataUser.password,
+        description,
+        profileImage,
+      };
+      content.users[content.authorized] = updateUser;
+      fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
+      res.status(201);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: `Server error` });
+    }
+  });
+  app.post("/changePassword", (req, res) => {
+    try {
+      const { password } = req.body as { password: string };
+      const dataUser = content.users.filter((el) => el.id === content.authorized)[0];
+      content.users[content.authorized] = { ...dataUser, password };
+      fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
+      res.status(201);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: `Server error` });
+    }
   });
 });

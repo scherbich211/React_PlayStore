@@ -27,13 +27,29 @@ const useSignInMutation = () =>
     }),
   });
 const useIsAuthorizedQuery = () => useRequestQuery<boolean, string>({ url: "auth/", method: "get" });
-const useUserQuery = () => useRequestQuery<IUser, string>({ url: "auth/user", method: "get" });
+const useUserQuery = () => useRequestQuery<IUser, string>({ url: "getProfile/", method: "get" });
 
 const useLogOutMutation = () =>
   useRequestMutation<string, string>({
     query: () => ({
       url: "auth/logOut/",
       method: "post",
+    }),
+  });
+const useSaveProfile = () =>
+  useRequestMutation<string, IUser>({
+    query: (body) => ({
+      url: "saveProfile/",
+      method: "post",
+      body,
+    }),
+  });
+const useChangePassword = () =>
+  useRequestMutation<string, { password: string }>({
+    query: (body) => ({
+      url: "changePassword/",
+      method: "post",
+      body,
     }),
   });
 
@@ -46,4 +62,6 @@ export {
   useIsAuthorizedQuery,
   useLogOutMutation,
   useUserQuery,
+  useSaveProfile,
+  useChangePassword,
 };

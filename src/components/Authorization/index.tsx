@@ -21,7 +21,7 @@ type FormState = {
 
 const matchRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 const schemaSignUp = Yup.object().shape({
-  login: Yup.string().required(),
+  login: Yup.string().min(3).required(),
   password: Yup.string().matches(matchRegExp).required(),
   confirmPassword: Yup.string().when("password", {
     is: (value: string | unknown[]) => value && value.length > 0,
@@ -71,6 +71,8 @@ const Authorization: React.FC = () => {
       id: 0,
       login: getValues("login"),
       password: getValues("password"),
+      description: "",
+      profileImage: "",
     };
     if (signUpProp) {
       signUp(user);
@@ -147,7 +149,7 @@ const Authorization: React.FC = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <CustomInput
-              value={value === undefined ? value : value}
+              value={value === undefined ? value : value.trim()}
               onChange={onChange}
               type={isVisible ? "password" : "text"}
               right={isVisible ? <AiFillEyeInvisible size={28} /> : <AiFillEye size={28} />}

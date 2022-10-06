@@ -6,7 +6,7 @@ import Modal from "./components/Modal";
 import About from "./components/pages/About";
 import Home from "./components/pages/Home/Home";
 import Products from "./components/pages/Products";
-import Profile from "./components/pages/Profile";
+import Profile from "./components/pages/Profile/Profile";
 import { useAppSelector } from "./hooks";
 import ProtectedRoute from "./sharedScreens/ProtectRoute/ProtectRoute";
 

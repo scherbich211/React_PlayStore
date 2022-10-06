@@ -12,6 +12,8 @@ export interface IUser {
   id: number;
   login: string;
   password: string;
+  description: string;
+  profileImage: string;
 }
 
 export interface responceJSON {

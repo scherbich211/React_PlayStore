@@ -7,5 +7,6 @@ const colors = {
   BLACK: "#000000",
   BLACK_ACTIVE: "#2b252e",
   GREEN: "#325c3b",
+  DARK_PURPURE: "#5b2c7e",
 };
 export default colors;

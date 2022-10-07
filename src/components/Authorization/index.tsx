@@ -40,7 +40,7 @@ const Authorization: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { type } = useAppSelector((state) => state.modal);
+  const { type, active } = useAppSelector((state) => state.modal);
   const [isVisible, visible] = useVisiability(true);
   const [isVisibleConfirm, visibleConfirm] = useVisiability(true);
 
@@ -122,6 +122,20 @@ const Authorization: React.FC = () => {
       );
     }
   }, [signUpSucccess, signUpData]);
+
+  useEffect(() => {
+    reset(
+      {},
+      {
+        keepErrors: false,
+        keepDirty: false,
+        keepIsSubmitted: false,
+        keepTouched: false,
+        keepIsValid: false,
+        keepSubmitCount: false,
+      }
+    );
+  }, [type, active]);
 
   return (
     <>

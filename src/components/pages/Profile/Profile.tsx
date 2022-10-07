@@ -1,6 +1,7 @@
 import { useSaveProfile, useUserQuery } from "@/api/user";
 import Loader from "@/components/Loader/loader.styles";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
 import { changeUser } from "@/redux/reducers/user";
 import { IUser } from "@/types/mockStore";
 import { useEffect, useState } from "react";
@@ -22,6 +23,11 @@ function Profile() {
 
   const handleSubmit = () => {
     save(newUser);
+  };
+
+  const handleChangePassword = () => {
+    dispatch(changeModalActive(true));
+    dispatch(changeModalType("password"));
   };
 
   useEffect(() => {
@@ -54,7 +60,7 @@ function Profile() {
                 <S.ButtonSubmit onClick={handleSubmit} disabled={!valid}>
                   <span>Save profile</span>
                 </S.ButtonSubmit>
-                <S.ButtonSubmit>
+                <S.ButtonSubmit onClick={handleChangePassword}>
                   <span>Change password</span>
                 </S.ButtonSubmit>
               </S.ButtonsWrapper>

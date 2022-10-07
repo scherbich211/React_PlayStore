@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Authorization from "./components/Authorization";
+import ChangePassword from "./components/ChangePassword";
 import Footer from "./components/Footer/Footer";
 import NavBar from "./components/Header/Header";
 import Modal from "./components/Modal";
@@ -38,7 +39,10 @@ const AppWrapper = () => {
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
-      <Modal active={active}>{(type === "signIn" || type === "signUp") && <Authorization />}</Modal>
+      <Modal active={active}>
+        {(type === "signIn" || type === "signUp") && <Authorization />}
+        {type === "password" && <ChangePassword />}
+      </Modal>
     </>
   );
 };

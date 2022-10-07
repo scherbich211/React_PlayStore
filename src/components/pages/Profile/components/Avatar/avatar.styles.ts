@@ -18,6 +18,14 @@ export const NoAvatarBack = styled.div`
   justify-content: center;
   align-items: center;
 `;
+export const AvatarImage = styled.img`
+  height: 25rem;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const NoAvatarSquare = styled.div`
   width: 43%;

@@ -5,12 +5,14 @@
 import webpackMockServer from "webpack-mock-server";
 import nodePath from "path";
 import { IUser, responceJSON } from "@/types/mockStore";
+import express from "express";
 
 export default webpackMockServer.add((app) => {
   // it resolves body
   const bodyParser = require("body-parser");
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({ limit: "50mb" }));
+  app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+  app.use(express.json());
 
   const resolvedPath = require.resolve(nodePath.join(__dirname, "./response.json"));
   delete require.cache[resolvedPath];
@@ -19,13 +21,13 @@ export default webpackMockServer.add((app) => {
   const content: responceJSON = JSON.parse(fs.readFileSync("response.json", "utf8"));
 
   app.get("/getTopProducts", (_req, res) => {
-    res.json(content.games);
+    res.status(200).json(content.games);
   });
   app.get("/search/:text", (req, res) => {
     const { text } = req.params;
     const { games } = content;
     const filteredArr = games.filter((el) => el.name.toLowerCase().startsWith(text.toLowerCase()));
-    res.json(filteredArr);
+    res.status(200).json(filteredArr);
   });
   app.put("/auth/signUp", (req, res) => {
     try {
@@ -66,16 +68,18 @@ export default webpackMockServer.add((app) => {
     try {
       content.authorized = -1;
       fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
-      res.status(200);
+      res.status(200).json();
     } catch (error) {
       res.status(400).send({ message: `Server error` });
     }
   });
   app.get("/auth", (_req, res) => {
-    res.json(content.authorized !== -1);
+    res.status(200).json(content.authorized !== -1);
   });
   app.get("/getProfile", (_req, res) => {
-    res.json(content.users.filter((el) => el.id === content.authorized)[0]);
+    setTimeout(() => {
+      res.status(200).json(content.users.filter((el) => el.id === content.authorized)[0]);
+    }, 1000);
   });
   app.post("/saveProfile", (req, res) => {
     try {
@@ -90,7 +94,7 @@ export default webpackMockServer.add((app) => {
       };
       content.users[content.authorized] = updateUser;
       fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
-      res.status(201);
+      res.status(200).json();
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: `Server error` });
@@ -102,7 +106,7 @@ export default webpackMockServer.add((app) => {
       const dataUser = content.users.filter((el) => el.id === content.authorized)[0];
       content.users[content.authorized] = { ...dataUser, password };
       fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
-      res.status(201);
+      res.status(200).json();
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: `Server error` });

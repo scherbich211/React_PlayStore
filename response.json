@@ -41,25 +41,17 @@
   "users": [
     {
       "id": 0,
-      "login": "SASHA",
-      "password": "1234567bB!"
+      "login": "sasha1",
+      "password": "1234567bB!",
+      "description": "aaaaaaaaaaaaaaaaaaaaaabbb\nccc\nfff\nsss\nggg\nrrr",
+      "profileImage": ""
     },
     {
       "id": 1,
-      "login": "pidor",
-      "password": "1234567bB!1",
-      "description": "pidor",
-      "profileImage": "pidor"
-    },
-    {
-      "id": 2,
-      "login": "admin1",
-      "password": "1234567bB!"
-    },
-    {
-      "id": 3,
-      "login": "ruslana",
-      "password": "1234567bB!"
+      "login": "dima",
+      "password": "1234567bB!",
+      "description": "sasha",
+      "profileImage": ""
     }
   ]
 }

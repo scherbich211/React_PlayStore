@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
+import AlertInfo from "./components/Alert/HOCAlert";
 import Authorization from "./components/Authorization";
+import ChangePassword from "./components/ChangePassword";
 import Footer from "./components/Footer/Footer";
 import NavBar from "./components/Header/Header";
 import Modal from "./components/Modal";
 import About from "./components/pages/About";
 import Home from "./components/pages/Home/Home";
 import Products from "./components/pages/Products";
-import Profile from "./components/pages/Profile";
+import Profile from "./components/pages/Profile/Profile";
 import { useAppSelector } from "./hooks";
 import ProtectedRoute from "./sharedScreens/ProtectRoute/ProtectRoute";
 
@@ -38,7 +40,11 @@ const AppWrapper = () => {
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
-      <Modal active={active}>{(type === "signIn" || type === "signUp") && <Authorization />}</Modal>
+      <Modal active={active}>
+        {(type === "signIn" || type === "signUp") && <Authorization />}
+        {type === "password" && <ChangePassword />}
+      </Modal>
+      <AlertInfo />
     </>
   );
 };

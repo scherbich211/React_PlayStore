@@ -8,6 +8,8 @@ const initialState: IUserRedux = {
     id: -1,
     login: "",
     password: "",
+    description: "",
+    profileImage: "",
   },
 };
 

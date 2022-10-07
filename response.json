@@ -37,27 +37,21 @@
       ]
     }
   ],
-  "authorized": -1,
+  "authorized": 1,
   "users": [
     {
       "id": 0,
-      "login": "SASHA",
-      "password": "1234567bB!"
+      "login": "sasha1",
+      "password": "1234567bB!",
+      "description": "aaaaaaaaaaaaaaaaaaaaaabbb\nccc\nfff\nsss\nggg\nrrr",
+      "profileImage": ""
     },
     {
       "id": 1,
-      "login": "admin",
-      "password": "1234567bB!"
-    },
-    {
-      "id": 2,
-      "login": "admin1",
-      "password": "1234567bB!"
-    },
-    {
-      "id": 3,
-      "login": "ruslana",
-      "password": "1234567bB!"
+      "login": "1dima",
+      "password": "1234567bB!",
+      "description": "sasha",
+      "profileImage": ""
     }
   ]
 }

@@ -20,6 +20,7 @@ const schhema = Yup.object().shape({
 interface IChangeUser {
   newUser: IUser;
   setNewUser: React.Dispatch<React.SetStateAction<IUser>>;
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Inputs: React.FC<IChangeUser> = (props) => {
@@ -52,6 +53,10 @@ const Inputs: React.FC<IChangeUser> = (props) => {
       props.setNewUser({ ...props.newUser, description: debouncedDescription });
     }
   }, [debouncedDescription]);
+
+  useEffect(() => {
+    props.setIsValid(isValid);
+  }, [isValid, debouncedLogin, debouncedDescription]);
 
   return (
     <InputsWrapper>

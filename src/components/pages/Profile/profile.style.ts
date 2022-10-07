@@ -1,6 +1,10 @@
 import colors from "@/styles/colors";
 import styled from "styled-components";
 
+interface IButtonSubmit {
+  disabled?: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -48,8 +52,8 @@ export const ButtonsWrapper = styled.div`
   height: 105px;
 `;
 
-export const ButtonSubmit = styled.button`
-  background-color: ${colors.DARK_PURPURE};
+export const ButtonSubmit = styled.button<IButtonSubmit>`
+  background-color: ${(props) => (props.disabled ? colors.LIGHT_GRAY : colors.DARK_PURPURE)};
   border-radius: 10px;
   height: 45px;
   shape-outside: none;

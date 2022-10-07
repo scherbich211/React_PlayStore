@@ -9,11 +9,21 @@ import Inputs from "./components/Inputs";
 import * as S from "./profile.style";
 
 function Profile() {
+  const dispatch = useAppDispatch();
+
+  const { user } = useAppSelector((state) => state.user);
+
+  const [newUser, setNewUser] = useState<IUser>(user);
+  const [valid, setIsValid] = useState(false);
+
   const [save, { isSuccess }] = useSaveProfile();
   const { isSuccess: getSuccess, data, isLoading, refetch } = useUserQuery();
   // const [change] = useChangePassword();
-  const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.user);
+
+  const handleSubmit = () => {
+    save(newUser);
+  };
+
   useEffect(() => {
     if (getSuccess) {
       if (data) {
@@ -21,12 +31,6 @@ function Profile() {
       }
     }
   }, [getSuccess]);
-
-  const [newUser, setNewUser] = useState<IUser>(user);
-
-  const handleSubmit = () => {
-    save(newUser);
-  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -45,9 +49,9 @@ function Profile() {
             <S.Underline />
             <S.ContentWrapper>
               <Avatar newUser={newUser} setNewUser={setNewUser} />
-              <Inputs newUser={newUser} setNewUser={setNewUser} />
+              <Inputs newUser={newUser} setNewUser={setNewUser} setIsValid={setIsValid} />
               <S.ButtonsWrapper>
-                <S.ButtonSubmit onClick={handleSubmit}>
+                <S.ButtonSubmit onClick={handleSubmit} disabled={!valid}>
                   <span>Save profile</span>
                 </S.ButtonSubmit>
                 <S.ButtonSubmit>

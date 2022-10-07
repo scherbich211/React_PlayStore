@@ -1,38 +1,39 @@
 /* eslint-disable global-require */
 import { useGetGamesMutation } from "@/api/user";
-import Alert from "@/components/Alert/alert";
 import GameCard from "@/components/GameCard";
 import Loader from "@/components/Loader/loader.styles";
-import { useState } from "react";
+import { useAppDispatch } from "@/hooks";
+import { setSnackBar } from "@/redux/reducers/alert";
+import { Time } from "@/types/alert";
 import WrapperList from "./gameList.style";
 
 const GameList = () => {
-  const [show, setShow] = useState(false);
+  const dispatch = useAppDispatch();
 
   const { data, isLoading } = useGetGamesMutation();
 
   const handlePress = () => {
-    setShow(true);
-    setTimeout(() => {
-      setShow(false);
-    }, 3000);
+    dispatch(
+      setSnackBar({
+        time: Time.MEDIUM,
+        message: "added",
+        notificationType: "info",
+      })
+    );
   };
 
   return (
-    <>
-      <Alert type="info" message="hi" handle={() => console.log(1)} show={show} />
-      <WrapperList>
-        {!isLoading && data ? (
-          <>
-            {data.slice(0, 3).map((el) => (
-              <GameCard card={el} key={el.name} handlePress={handlePress} />
-            ))}
-          </>
-        ) : (
-          <Loader />
-        )}
-      </WrapperList>
-    </>
+    <WrapperList>
+      {!isLoading && data ? (
+        <>
+          {data.slice(0, 3).map((el) => (
+            <GameCard card={el} key={el.name} handlePress={handlePress} />
+          ))}
+        </>
+      ) : (
+        <Loader />
+      )}
+    </WrapperList>
   );
 };
 

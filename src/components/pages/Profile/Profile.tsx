@@ -1,8 +1,10 @@
 import { useSaveProfile, useUserQuery } from "@/api/user";
 import Loader from "@/components/Loader/loader.styles";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { setSnackBar } from "@/redux/reducers/alert";
 import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
 import { changeUser } from "@/redux/reducers/user";
+import { Time } from "@/types/alert";
 import { IUser } from "@/types/mockStore";
 import { useEffect, useState } from "react";
 import Avatar from "./components/Avatar";
@@ -19,7 +21,6 @@ function Profile() {
 
   const [save, { isSuccess }] = useSaveProfile();
   const { isSuccess: getSuccess, data, isLoading, refetch } = useUserQuery();
-  // const [change] = useChangePassword();
 
   const handleSubmit = () => {
     save(newUser);
@@ -41,6 +42,13 @@ function Profile() {
   useEffect(() => {
     if (isSuccess) {
       refetch();
+      dispatch(
+        setSnackBar({
+          time: Time.MEDIUM,
+          message: "Profile has been changed",
+          notificationType: "info",
+        })
+      );
     }
   }, [isSuccess]);
 

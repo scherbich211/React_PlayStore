@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import AlertInfo from "./components/Alert/HOCAlert";
 import Authorization from "./components/Authorization";
 import ChangePassword from "./components/ChangePassword";
 import Footer from "./components/Footer/Footer";
@@ -43,6 +44,7 @@ const AppWrapper = () => {
         {(type === "signIn" || type === "signUp") && <Authorization />}
         {type === "password" && <ChangePassword />}
       </Modal>
+      <AlertInfo />
     </>
   );
 };

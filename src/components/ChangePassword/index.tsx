@@ -7,6 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useChangePassword, useUserQuery } from "@/api/user";
 import { changeModalActive } from "@/redux/reducers/modal";
 import { changeUser } from "@/redux/reducers/user";
+import { setSnackBar } from "@/redux/reducers/alert";
+import { Time } from "@/types/alert";
 import CustomInput from "../CustomInput";
 import * as S from "./changePassword.style";
 
@@ -60,6 +62,13 @@ const ChangePassword: React.FC = () => {
   useEffect(() => {
     if (isSuccess) {
       refetch();
+      dispatch(
+        setSnackBar({
+          time: Time.MEDIUM,
+          message: "Password has been changed",
+          notificationType: "info",
+        })
+      );
     }
   }, [isSuccess]);
 

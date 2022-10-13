@@ -17,15 +17,15 @@ export default webpackMockServer.add((app) => {
   app.use(express.json());
 
   // from docs of API
-  const usersPath = require.resolve(nodePath.join(__dirname, "./JSON/users.json"));
-  const gamesPath = require.resolve(nodePath.join(__dirname, "./JSON/games.json"));
+  const usersPath = require.resolve(nodePath.join(__dirname, "./dataJSON/users.json"));
+  const gamesPath = require.resolve(nodePath.join(__dirname, "./dataJSON/games.json"));
   delete require.cache[usersPath];
   delete require.cache[gamesPath];
 
   // read content
   const fs = require("fs");
-  const contentUsers: usersJSON = JSON.parse(fs.readFileSync("./JSON/users.json", "utf8"));
-  const contentGames: gamesJSON = JSON.parse(fs.readFileSync("./JSON/games.json", "utf8"));
+  const contentUsers: usersJSON = JSON.parse(fs.readFileSync("./dataJSON/users.json", "utf8"));
+  const contentGames: gamesJSON = JSON.parse(fs.readFileSync("./dataJSON/games.json", "utf8"));
 
   // fake delay
   app.use((_req, _res, next) => {

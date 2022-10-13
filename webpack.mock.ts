@@ -7,7 +7,7 @@ import nodePath from "path";
 import { IUser, usersJSON, gamesJSON } from "@/types/mockStore";
 import express from "express";
 
-export default webpackMockServer.add((app) => {
+export default webpackMockServer.add((app, helper) => {
   // it resolves body
   const bodyParser = require("body-parser");
 
@@ -29,7 +29,7 @@ export default webpackMockServer.add((app) => {
 
   // fake delay
   app.use((_req, _res, next) => {
-    setTimeout(next, 1000);
+    setTimeout(next, helper.getRandomInt(0, 500));
   });
 
   app.get("/getTopProducts", (_req, res) => {

@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const SearchBlock = styled.div`
   width: 80%;
-  margin-top: 20px;
   justify-content: center;
   display: flex;
   align-self: center;

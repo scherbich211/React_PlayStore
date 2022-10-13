@@ -1,5 +1,5 @@
 import Alert from "@/components/Alert/alert";
-import redirect from "@/utils/mics";
+import { redirect } from "@/utils/mics";
 import { Component, ReactNode } from "react";
 
 interface Props {

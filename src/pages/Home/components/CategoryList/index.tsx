@@ -1,7 +1,7 @@
 import { Img, ListItem, WrapperList } from "./categoryList.style";
-import Windows from "../../../../../assets/images/windows.svg";
-import Playstation from "../../../../../assets/images/playstation.svg";
-import Xbox from "../../../../../assets/images/xbox.svg";
+import Windows from "../../../../assets/images/windows.svg";
+import Playstation from "../../../../assets/images/playstation.svg";
+import Xbox from "../../../../assets/images/xbox.svg";
 
 const categoriesListData = [
   {

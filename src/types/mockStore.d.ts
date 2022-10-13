@@ -16,8 +16,11 @@ export interface IUser {
   profileImage: string;
 }
 
-export interface responceJSON {
-  games: Array<IGameData>;
+export interface usersJSON {
   users: Array<IUser>;
   authorized: number;
+}
+
+export interface gamesJSON {
+  games: Array<IGameData>;
 }

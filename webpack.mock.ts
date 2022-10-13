@@ -4,44 +4,57 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import nodePath from "path";
-import { IUser, responceJSON } from "@/types/mockStore";
+import { IUser, usersJSON, gamesJSON } from "@/types/mockStore";
 import express from "express";
 
 export default webpackMockServer.add((app) => {
   // it resolves body
   const bodyParser = require("body-parser");
+
+  // gives 50mb limit of req for images
   app.use(bodyParser.json({ limit: "50mb" }));
   app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
   app.use(express.json());
 
-  const resolvedPath = require.resolve(nodePath.join(__dirname, "./response.json"));
-  delete require.cache[resolvedPath];
+  // from docs of API
+  const usersPath = require.resolve(nodePath.join(__dirname, "./JSON/users.json"));
+  const gamesPath = require.resolve(nodePath.join(__dirname, "./JSON/games.json"));
+  delete require.cache[usersPath];
+  delete require.cache[gamesPath];
 
+  // read content
   const fs = require("fs");
-  const content: responceJSON = JSON.parse(fs.readFileSync("response.json", "utf8"));
+  const contentUsers: usersJSON = JSON.parse(fs.readFileSync("./JSON/users.json", "utf8"));
+  const contentGames: gamesJSON = JSON.parse(fs.readFileSync("./JSON/games.json", "utf8"));
+
+  // fake delay
+  app.use((_req, _res, next) => {
+    setTimeout(next, 1000);
+  });
 
   app.get("/getTopProducts", (_req, res) => {
-    res.status(200).json(content.games);
+    res.status(200).json(contentGames.games);
   });
   app.get("/search/:text", (req, res) => {
     const { text } = req.params;
-    const { games } = content;
+    const { games } = contentGames;
     const filteredArr = games.filter((el) => el.name.toLowerCase().startsWith(text.toLowerCase()));
     res.status(200).json(filteredArr);
   });
+
   app.put("/auth/signUp", (req, res) => {
     try {
       const { login, password } = req.body as IUser;
       const newUser: IUser = {
-        id: content.users.length,
+        id: contentUsers.users.length,
         login,
         password,
         description: "",
         profileImage: "",
       };
-      content.users = [...content.users, newUser];
-      content.authorized = newUser.id;
-      fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
+      contentUsers.users = [...contentUsers.users, newUser];
+      contentUsers.authorized = newUser.id;
+      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json(newUser);
     } catch (error) {
       console.log(error);
@@ -51,10 +64,10 @@ export default webpackMockServer.add((app) => {
   app.post("/auth/signIn", (req, res) => {
     try {
       const { login, password } = req.body as IUser;
-      const dataUser = content.users.filter((el) => el.login === login && el.password === password);
+      const dataUser = contentUsers.users.filter((el) => el.login === login && el.password === password);
       if (dataUser.length > 0) {
-        content.authorized = dataUser[0].id;
-        fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
+        contentUsers.authorized = dataUser[0].id;
+        fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
         res.status(201).json(dataUser[0]);
       } else {
         res.status(400).send({ message: `Wrong login or username` });
@@ -66,25 +79,23 @@ export default webpackMockServer.add((app) => {
   });
   app.post("/auth/logOut", (_req, res) => {
     try {
-      content.authorized = -1;
-      fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
+      contentUsers.authorized = -1;
+      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       res.status(400).send({ message: `Server error` });
     }
   });
   app.get("/auth", (_req, res) => {
-    res.status(200).json(content.authorized !== -1);
+    res.status(200).json(contentUsers.authorized !== -1);
   });
   app.get("/getProfile", (_req, res) => {
-    setTimeout(() => {
-      res.status(200).json(content.users.filter((el) => el.id === content.authorized)[0]);
-    }, 1000);
+    res.status(200).json(contentUsers.users.filter((el) => el.id === contentUsers.authorized)[0]);
   });
   app.post("/saveProfile", (req, res) => {
     try {
       const { login, description, profileImage } = req.body as IUser;
-      const dataUser = content.users.filter((el) => el.id === content.authorized)[0];
+      const dataUser = contentUsers.users.filter((el) => el.id === contentUsers.authorized)[0];
       const updateUser: IUser = {
         id: dataUser.id,
         login,
@@ -92,8 +103,8 @@ export default webpackMockServer.add((app) => {
         description,
         profileImage,
       };
-      content.users[content.authorized] = updateUser;
-      fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
+      contentUsers.users[contentUsers.authorized] = updateUser;
+      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       console.log(error);
@@ -103,9 +114,9 @@ export default webpackMockServer.add((app) => {
   app.post("/changePassword", (req, res) => {
     try {
       const { password } = req.body as { password: string };
-      const dataUser = content.users.filter((el) => el.id === content.authorized)[0];
-      content.users[content.authorized] = { ...dataUser, password };
-      fs.writeFileSync("response.json", JSON.stringify(content, null, 2));
+      const dataUser = contentUsers.users.filter((el) => el.id === contentUsers.authorized)[0];
+      contentUsers.users[contentUsers.authorized] = { ...dataUser, password };
+      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       console.log(error);

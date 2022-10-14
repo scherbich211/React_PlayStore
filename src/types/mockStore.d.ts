@@ -2,6 +2,7 @@ export interface IGameData {
   id: number;
   name: string;
   price: string;
+  genre: string;
   route: string;
   descriptionBack: string;
   age: string;

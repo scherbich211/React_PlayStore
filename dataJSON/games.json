@@ -4,6 +4,7 @@
       "id": 0,
       "name": "Assasin",
       "price": "29.99",
+      "genre": "Survive",
       "route": "https://img1.akspic.ru/crops/5/7/1/9/4/149175/149175-kompyuternaya_igra-bitva-graficeskij_dizajn-vizualnoe_iskusstvo-assassins_krid_ii-1440x2560.jpg",
       "descriptionBack": "The word assassin, pronounced 'uh-SASS-in' describes a person who murders a prominent person, like a political or religious leader. Often, this person is hired to kill, though he or she might act on personal motivations.",
       "age": "12",
@@ -13,6 +14,7 @@
       "id": 1,
       "name": "Cyberpunk",
       "price": "29.99",
+      "genre": "Arcade",
       "route": "https://img2.akspic.ru/crops/9/4/4/6/2/126449/126449-temnota-gorodskoj_rajon-gorod-metropoliya-zdanie-1440x2560.jpg",
       "descriptionBack": "In science fiction circles, 'cyberpunk' is a genre that often features countercultural antiheroes trapped in a dehumanizing high-tech future. Its roots extend back to the technical fiction of the 1940s and 50s, but it was years before it matured.",
       "age": "12",
@@ -22,10 +24,234 @@
       "id": 2,
       "name": "League of Legends",
       "price": "29.99",
+      "genre": "Arcade",
       "route": "https://img3.akspic.ru/crops/3/1/2/6/6/166213/166213-vanda_maximoff-wandavision-videnie-komiksy_marvel-supergeroj-1440x2560.jpg",
       "descriptionBack": "What is League of Legends? League of Legends is a team-based strategy game where two teams of five powerful champions face off to destroy the others base. Choose from over 140 champions to make epic plays, secure kills, and take down towers as you battle your way to victory.",
       "age": "12",
       "permission": ["PC"]
+    },
+    {
+      "id": 3,
+      "name": "Overwatch",
+      "age": 12,
+      "rating": 5,
+      "price": 23.99,
+      "genre": "Shooter",
+      "permission":["PC","Playstation","XBox"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/3/33/Overwatch_Origins_Edition_PC_cover.jpg",
+      "descriptionBack": "Overwatch is a colorful team-based action game starring a diverse cast of powerful heroes. Travel the world, build a team, and contest objectives in exhilarating 6v6 combat."
+    },
+
+    {
+      "id": 4,
+      "name": "Minecraft",
+      "age": 3,
+      "rating": 4,
+      "price": 25.99,
+      "genre": "Survive",
+      "permission": ["PC"],
+      "route": "https://www.minecraft.net/content/dam/minecraft/home/Games_Subnav_Minecraft-228x350.png",
+      "descriptionBack": "Minecraft is a sandbox game. There is a virtual land where users can create their own worlds and experiences, using building blocks, resources discovered on the site and their own creativity."
+    },
+
+    {
+      "id": 5,
+      "name": "Terraria",
+      "age": 6,
+      "rating": 4,
+      "price": 4.99,
+      "genre": "Survive",
+      "premission":["PC","Playstation","XBox"],
+      "route": "https://cdn.kanobu.ru/c/7b6e22e0e976b3d2fb7559d81509e252/400x510/cdn.kanobu.ru/games/11098/cf8f300f-8d65-495b-9b41-78654a988302.jpg",
+      "descriptionBack": "Terraria is a 2D sandbox game with gameplay that revolves around exploration, building, crafting, combat, survival, and mining, playable in both single-player and multiplayer modes."
+    },
+
+    {
+      "id": 6,
+      "name": "The Witcher 3: Wild Hunt",
+      "age": 16,
+      "rating": 5,
+      "price": 29.99,
+      "genre": "Arcade",
+      "premission":["PC","Playstation","XBox"],
+      "route": "http://s.gamer-info.com/gl/t/h/e/w/the-witcher-3-wild-hunt_ba.jpg",
+      "descriptionBack": "The Witcher 3: Wild Hunt is an action role-playing game with a third-person perspective. Players control Geralt of Rivia, a monster slayer known as a Witcher."
+    },
+    {
+      "id": 7,
+      "name": "Assassin's Creed Valhalla",
+      "age": 18,
+      "rating": 5,
+      "price": 25.99,
+      "genre": "Arcade",
+      "permission": ["Playstation"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/2/26/AC_Valhalla_standard_edition.jpg",
+      "descriptionBack": "In Assassin's Creed Valhalla, become Eivor, a legendary Viking raider on a quest for glory. Explore a dynamic and beautiful open world set against the brutal backdrop of England's Dark Ages."
+    },
+    {
+      "id": 8,
+      "name": "Cyberpunk 2077",
+      "age": 18,
+      "rating": 3,
+      "price": 18.99,
+      "genre": "Arcade",
+      "permission": ["PC"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/b/bb/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_%D0%BA%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D0%BE%D0%B9_%D0%B8%D0%B3%D1%80%D1%8B_Cyberpunk_2077.jpg",
+      "descriptionBack": "Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification."
+    },
+    {
+      "id": 9,
+      "name": "Far Cry 5",
+      "age": 18,
+      "rating": 4,
+      "price": 18.99,
+      "genre": "Arcade",
+      "premission": ["Playstation"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/4/42/Far_Cry_5_cover.png",
+      "descriptionBack": "Hope County is the land of the free and the brave but also home to a fanatical doomsday cult known as Eden’s Gate. Stand up to cult leader and his siblings to liberate the besieged community."
+    },
+    {
+      "id": 10,
+      "name": "Grand Theft Auto V",
+      "age": 18,
+      "rating": 5,
+      "price": 10.99,
+      "genre": "Shooter",
+      "premission": ["XBox"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/c/c8/GTAV_Official_Cover_Art.jpg",
+      "descriptionBack": "Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions — linear scenarios — to progress through the story"
+    },
+    {
+      "id": 11,
+      "name": "Sims 4",
+      "age": 12,
+      "rating": 4,
+      "price": 40.99,
+      "genre": "Arcade",
+      "premission": ["PC", "XBox"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/5/5e/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_The_Sims_4.jpeg",
+      "descriptionBack": "Explore and customize every detail, from Sims to homes and much more. Choose how Sims look, act, and dress. Determine how they’ll live out each day."
+    },
+    {
+      "id": 12,
+      "name": "Cooking Mama: Cookstar",
+      "age": 3,
+      "rating": 4,
+      "price": 14.99,
+      "genre": "Arcade",
+      "premission": ["Playstation", "XBox"],
+      "route": "https://delistedgames.com/wp-content/uploads/2020/04/cookingmamacookstar.jpg",
+      "descriptionBack": "This is a cooking simulation game in which players create and prepare dishes by completing cooking tasks (e.g., chopping, grating, fileting, frying)"
+    },
+    {
+      "id": 13,
+      "name": "DOOM 3",
+      "age": 16,
+      "rating": 5,
+      "price": 40.99,
+      "genre": "Shooter",
+      "premission":["PC","Playstation","XBox"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/thumb/4/4e/Doom3box.jpg/274px-Doom3box.jpg",
+      "descriptionBack": "This is a first-person shooter in which players assume the role of a marine battling a demonic invasion at a Mars base. Players use big variety of guns to kill mutants and demonic creatures."
+    },
+    {
+      "id": 14,
+      "name": "Epic Shef",
+      "age": 12,
+      "rating": 4,
+      "price": 12.99,
+      "genre": "Arcade",
+      "premission": ["PC"],
+      "route": "https://torrents-igruha.org/uploads/posts/2021-01/1611444215_25.jpg",
+      "descriptionBack": "This is an adventure game in which players assume the role of a young chef exploring the land, harvesting crops, and cooking dishes to battle in culinary duels."
+    },
+    {
+      "id": 15,
+      "name": "Life is Strange: Before the storm",
+      "age": 16,
+      "rating": 4,
+      "price": 12.99,
+      "genre": "Survive",
+      "premission": ["PC", "Playstation"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/0/0e/Life_Is_Strange_Before_The_Storm.jpg",
+      "descriptionBack": "It is a game in which players assume the role of a high-school student investigating a family secret. Players are presented with various dialogue choices that change the course of the narrative."
+    },
+    {
+      "id": 16,
+      "name": "The Elder Scrolls V: Skyrim",
+      "age": 16,
+      "rating": 5,
+      "price": 35.99,
+      "genre": "Arcade",
+      "premission": ["Playstation", "XBox"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/3/3a/The_Elder_Scrolls_V_-_Skyrim.jpg",
+      "descriptionBack": "The game's main story revolves around the player's character, the Dragonborn, on their quest to defeat Alduin the World-Eater, a dragon who is prophesied to destroy the world."
+    },
+    {
+      "id": 17,
+      "name": "Apex Legends",
+      "age": 12,
+      "rating": 3,
+      "price": 15.99,
+      "genre": "Shooter",
+      "premission":["PC","Playstation","XBox"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/1/17/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_Apex_Legends.jpg",
+      "descriptionBack": "Apex Legends is an online multiplayer battle royale game featuring squads of three players using pre-made characters with distinctive abilities, similar to those of hero shooters."
+    },
+    {
+      "id": 18,
+      "name": "Mass Effect: Legendary Edition",
+      "age": 16,
+      "rating": 5,
+      "price": 45.99,
+      "genre": "Arcade",
+      "premission":["PC","Playstation","XBox"],
+      "route": "https://cdn-products.eneba.com/resized-products/q7LfT94FS4Fc5KomlwjjI_pJxUyWdneCLgsWqqRRuAQ_350x200_1x-0.jpeg",
+      "descriptionBack": "The Mass Effect™ Legendary Edition includes single-player base content and over 40 DLC from Mass Effect, Mass Effect 2, and Mass Effect 3 games, including promo weapons and armors"
+    },
+    {
+      "id": 19,
+      "name": "F1 2021",
+      "age": 6,
+      "rating": 4,
+      "price": 59.99,
+      "genre": "Arcade",
+      "premission": ["PC"],
+      "route": "https://s1.gaming-cdn.com/images/products/8970/271x377/f1-2021-xbox-one-xbox-series-xs-cover.jpg",
+      "descriptionBack": "Enjoy the stunning new features of F1® 2021, including the thrilling story experience ‘Braking Point’, two-player Career, and get even closer to the grid with ‘Real-Season Start’."
+    },
+    {
+      "id": 20,
+      "name": "Call of Duty: Modern Warfare",
+      "age": 18,
+      "rating": 2,
+      "price": 9.99,
+      "genre": "Shooter",
+      "premission":["PC","Playstation","XBox"],
+      "route": "https://u.kanobu.ru/games/80639295-496e-4eff-880c-7046004b021c.jpg",
+      "descriptionBack": "Call of Duty: Modern Warfare is a first-person shooter video game developed by Infinity Ward for the Xbox One, PlayStation 4 and Windows. It is a reboot of the original Modern Warfare trilogy."
+    },
+    {
+      "id": 21,
+      "name": "Hitman",
+      "age": 16,
+      "rating": 5,
+      "price": 25.99,
+      "genre": "Shooter",
+      "premission":["PC","Playstation","XBox"],
+      "route": "https://upload.wikimedia.org/wikipedia/ru/thumb/4/4b/Hitman_3_Packart.jpg/1200px-Hitman_3_Packart.jpg",
+      "descriptionBack": "Hitman is a stealth video game in which players control a genetically enhanced assassin from a third-person perspective as he carries out assassinations of various targets across the globe."
+    },
+    {
+      "id": 22,
+      "name": "Rust",
+      "age": 18,
+      "rating": 5,
+      "price": 30.99,
+      "genre": "Survive",
+      "premission":["PC","Playstation","XBox"],
+      "route": "https://store-images.s-microsoft.com/image/apps.36981.69312789698701726.d27b8773-a696-422a-8e4e-47d9f8fde34f.c3287c35-a0e9-411d-ba6a-459b891e4106",
+      "descriptionBack": "The only aim in Rust is to survive. Everything wants you to die - the island’s wildlife and other inhabitants, the environment, other survivors. Do whatever it takes to last another night."
     }
-  ]
+]
 }

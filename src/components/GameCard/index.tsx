@@ -5,13 +5,14 @@ import * as S from "./gameCard.style";
 interface IProps {
   card: IGameData;
   handlePress: () => void;
+  width?: string;
 }
 
 const GameCard: React.FC<IProps> = (props) => {
   const { name, route, price, descriptionBack, age } = props.card;
 
   return (
-    <S.ListItem onClick={props.handlePress}>
+    <S.ListItem onClick={props.handlePress} width={props.width}>
       <S.FlipCardInner>
         <S.Front>
           <S.Img src={route} />

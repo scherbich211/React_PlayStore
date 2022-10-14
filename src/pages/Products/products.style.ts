@@ -33,6 +33,13 @@ export const Wrapper = styled.div<{ width: string }>`
   padding: 3rem;
 `;
 
+export const WrapperFlex = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+`;
+
 export const Title = styled.span<{ category?: "title" | "filt" }>`
   color: ${colors.LIGHT_GRAY};
   font-size: 24px;
@@ -41,17 +48,11 @@ export const Title = styled.span<{ category?: "title" | "filt" }>`
   display: block;
 `;
 
-export const Subtitle = styled.span`
-  color: ${colors.LIGHT_GRAY};
-  font-size: 22px;
-  line-height: 24px;
-  margin-top: 20px;
-`;
-
 export const Underline = styled.div`
   display: flex;
   height: 3px;
   background-color: ${colors.LIGHT_GRAY};
   border-radius: 2px;
-  margin: 1rem 0 1rem;
+  margin: 20px 0 20px;
+  display: block;
 `;

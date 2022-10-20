@@ -1,17 +1,28 @@
-import { useGetGamesMutation } from "@/api/user";
 import GameCard from "@/components/GameCard";
 import Loader from "@/components/Loader/loader.styles";
 import SearchBar from "@/components/SearchBar";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useFilteredGames } from "@/hooks";
 import { setSnackBar } from "@/redux/reducers/alert";
 import { Time } from "@/types/alert";
+import { IFilter } from "@/types/products";
+import { getValueAtIndex } from "@/utils/mics";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import SortPart from "./components/SortPart";
 import * as S from "./products.style";
 
 function Products() {
+  const location = useLocation();
   const dispatch = useAppDispatch();
 
-  const { data, isLoading } = useGetGamesMutation();
+  const [name, setName] = useState<"PC" | "Playstation 5" | "XBox One">("PC");
+  const [filter, setFilter] = useState<IFilter>({
+    selectedCriteria: "Name",
+    selectedType: "Hight to Low",
+    selectedGenre: "All genres",
+    selectedAge: "All ages",
+  });
+  const [games, isLoading] = useFilteredGames(name, filter);
 
   const handlePress = () => {
     dispatch(
@@ -22,22 +33,36 @@ function Products() {
       })
     );
   };
+
+  useEffect(() => {
+    switch (getValueAtIndex(4)) {
+      case "pc":
+        return setName("PC");
+      case "xbox":
+        return setName("XBox One");
+      case "playstation":
+        return setName("Playstation 5");
+      default:
+        return setName("PC");
+    }
+  }, [location]);
+
   return (
     <S.Container>
       <S.ContainerRow>
-        <SortPart />
+        <SortPart name={name} filter={filter} setFilter={setFilter} />
         <S.ContainerColumn>
           <SearchBar />
           <S.Wrapper width="100%">
             <S.WrapperFlex>
-              {!isLoading && data ? (
+              {isLoading ? (
+                <Loader />
+              ) : (
                 <>
-                  {data.map((el) => (
+                  {games.map((el) => (
                     <GameCard card={el} key={el.name} handlePress={handlePress} width="28%" />
                   ))}
                 </>
-              ) : (
-                <Loader />
               )}
             </S.WrapperFlex>
           </S.Wrapper>

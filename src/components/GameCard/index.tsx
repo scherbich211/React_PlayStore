@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const GameCard: React.FC<IProps> = (props) => {
-  const { name, route, price, descriptionBack, age } = props.card;
+  const { name, route, price, descriptionBack, age, rating } = props.card;
 
   return (
     <S.ListItem onClick={props.handlePress} width={props.width}>
@@ -21,7 +21,7 @@ const GameCard: React.FC<IProps> = (props) => {
             <S.TextGame>{price}</S.TextGame>
           </S.TextWrapper>
           <S.StarWrapper>
-            {Array.from({ length: 5 }, (_, index) => (
+            {Array.from({ length: Number(rating) }, (_, index) => (
               <Star key={index} />
             ))}
           </S.StarWrapper>

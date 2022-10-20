@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import * as S from "./sortdropdown.style";
 
 interface IProps<T> {
   array: Array<T>;
   selectedOption: T;
-  setSelectedOption: React.Dispatch<React.SetStateAction<T>>;
+  setSelectedOption: (value: T) => void;
 }
 
 export default function SortDropdown<T>(props: IProps<T>) {

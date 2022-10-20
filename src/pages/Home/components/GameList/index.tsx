@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import { useGetGamesMutation } from "@/api/user";
+import { useGetGamesQuery } from "@/api/user";
 import GameCard from "@/components/GameCard";
 import Loader from "@/components/Loader/loader.styles";
 import { useAppDispatch } from "@/hooks";
@@ -10,7 +10,7 @@ import WrapperList from "./gameList.style";
 const GameList = () => {
   const dispatch = useAppDispatch();
 
-  const { data, isLoading } = useGetGamesMutation();
+  const { data, isLoading } = useGetGamesQuery();
 
   const handlePress = () => {
     dispatch(

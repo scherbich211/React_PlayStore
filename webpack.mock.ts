@@ -33,8 +33,15 @@ export default webpackMockServer.add((app, helper) => {
   });
 
   app.get("/getTopProducts", (_req, res) => {
-    res.status(200).json(contentGames.games);
+    res.status(200).json(contentGames.games.slice(0, 3));
   });
+
+  app.get("/getScreenProducts/:text", (req, res) => {
+    const { text } = req.params as { text: "Playstation 5" | "PC" | "XBox One" };
+    const data = contentGames.games.filter((el) => el.permission.indexOf(text) !== -1);
+    res.status(200).json(data);
+  });
+
   app.get("/search/:text", (req, res) => {
     const { text } = req.params;
     const { games } = contentGames;

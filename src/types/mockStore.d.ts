@@ -4,9 +4,10 @@ export interface IGameData {
   price: string;
   genre: string;
   route: string;
+  rating: number;
   descriptionBack: string;
   age: string;
-  permission: Array<"PC" | "Platstation" | "XBox">;
+  permission: Array<"PC" | "Playstation 5" | "XBox One">;
 }
 
 export interface IUser {

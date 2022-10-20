@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
+import { useScreenProductsMutation } from "./api/user";
+import { IGameData } from "./types/mockStore";
+import { IFilter } from "./types/products";
 import { AppDispatch, RootState } from "./types/redux";
+import { lowToHight, heightToLow, filterGenres, filterAge } from "./utils/filter";
 
 export const useAppDispatch = (): AppDispatch => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -58,4 +62,29 @@ export const useOnFocusElement = ({ ref }: Props) => {
     isFocus,
     setIsFocus,
   };
+};
+
+export const useFilteredGames = (
+  name: "PC" | "Playstation 5" | "XBox One",
+  filter: IFilter
+): [Array<IGameData>, boolean] => {
+  const [games, setGames] = useState<Array<IGameData>>([]);
+
+  const [filterStart, { data, isSuccess, isLoading }] = useScreenProductsMutation();
+
+  useEffect(() => {
+    setGames([]);
+    filterStart(name);
+  }, [name, filter]);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      const a = filter.selectedType === "Low to Hight" ? lowToHight(data, filter) : heightToLow(data, filter);
+      const b = filterGenres(a, filter);
+      const c = filterAge(b, filter);
+      setGames(c);
+    }
+  }, [isSuccess, data]);
+
+  return [games, isLoading];
 };

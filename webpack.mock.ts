@@ -36,10 +36,15 @@ export default webpackMockServer.add((app, helper) => {
     res.status(200).json(contentGames.games.slice(0, 3));
   });
 
-  app.get("/getScreenProducts/:text", (req, res) => {
-    const { text } = req.params as { text: "Playstation 5" | "PC" | "XBox One" };
-    const data = contentGames.games.filter((el) => el.permission.indexOf(text) !== -1);
-    res.status(200).json(data);
+  app.get("/getScreenProducts/:screen/:text", (req, res) => {
+    const { screen, text } = req.params as { screen: "Playstation 5" | "PC" | "XBox One"; text: string };
+    const data = contentGames.games.filter((el) => el.permission.indexOf(screen) !== -1);
+    if (text === "empty") {
+      res.status(200).json(data);
+    } else {
+      const filteredByName = data.filter((el) => el.name.toLowerCase().startsWith(text.toLowerCase()));
+      res.status(200).json(filteredByName);
+    }
   });
 
   app.get("/search/:text", (req, res) => {

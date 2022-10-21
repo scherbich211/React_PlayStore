@@ -2,11 +2,16 @@ import { useSearchMutation } from "@/api/user";
 import Loader from "@/components/Loader/loader.styles";
 import { useDebounce } from "@/hooks";
 import { IGameData } from "@/types/mockStore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchBlock, SearchPanel, StyledList } from "./searchBar.style";
 import { NoElements, ResultElements } from "./searchBarComponents";
 
-const SearchBar = () => {
+interface IProps {
+  products?: boolean;
+  setTextSearch?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchBar: React.FC<IProps> = (props) => {
   const [showSearch, setShowSearch] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +20,7 @@ const SearchBar = () => {
 
   const [searchGames, { isLoading, isSuccess, data }] = useSearchMutation();
 
-  document.addEventListener("DOMContentLoaded", () => {
+  useEffect(() => {
     const input = document.getElementById("pidor") as HTMLInputElement | null;
     if (input !== null) {
       input.addEventListener(
@@ -33,18 +38,28 @@ const SearchBar = () => {
         true
       );
     }
-  });
+  }, []);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       setIsSearching(true);
-      searchGames(debouncedSearchTerm);
+      if (!props.products) {
+        searchGames(debouncedSearchTerm);
+      } else {
+        props.setTextSearch && props.setTextSearch(debouncedSearchTerm);
+      }
     } else {
       setResults([]);
     }
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    if (props.products && searchTerm === "") {
+      props.setTextSearch && props.setTextSearch(searchTerm);
+    }
+  }, [searchTerm]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -67,7 +82,7 @@ const SearchBar = () => {
         autoComplete="off"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      {showSearch && (
+      {showSearch && !props.products && (
         <StyledList>
           {isSearching ? (
             <Loader />

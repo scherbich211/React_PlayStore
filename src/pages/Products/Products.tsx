@@ -16,13 +16,15 @@ function Products() {
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState<"PC" | "Playstation 5" | "XBox One">("PC");
+  const [searchText, setSearchText] = useState("");
+
   const [filter, setFilter] = useState<IFilter>({
     selectedCriteria: "Name",
     selectedType: "Hight to Low",
     selectedGenre: "All genres",
     selectedAge: "All ages",
   });
-  const [games, isLoading] = useFilteredGames(name, filter);
+  const [games, isLoading] = useFilteredGames(name, filter, searchText);
 
   const handlePress = () => {
     dispatch(
@@ -52,7 +54,7 @@ function Products() {
       <S.ContainerRow>
         <SortPart name={name} filter={filter} setFilter={setFilter} />
         <S.ContainerColumn>
-          <SearchBar />
+          <SearchBar products setTextSearch={setSearchText} />
           <S.Wrapper width="100%">
             <S.WrapperFlex>
               {isLoading ? (

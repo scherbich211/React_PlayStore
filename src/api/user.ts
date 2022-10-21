@@ -1,4 +1,4 @@
-import { IGameData, IUser } from "@/types/mockStore";
+import { dataSearchProducts, IGameData, IUser } from "@/types/mockStore";
 import { useRequestMutation, useRequestQuery } from "./axiosHooks";
 
 const useGetGamesQuery = () => useRequestQuery<Array<IGameData>, string>({ url: "getTopProducts/", method: "get" });
@@ -11,9 +11,9 @@ const useSearchMutation = () =>
     }),
   });
 const useScreenProductsMutation = () =>
-  useRequestMutation<Array<IGameData>, string>({
+  useRequestMutation<Array<IGameData>, dataSearchProducts>({
     query: (data) => ({
-      url: `getScreenProducts/${data}`,
+      url: `getScreenProducts/${data?.screen}/${data?.text}`,
       method: "get",
     }),
   });

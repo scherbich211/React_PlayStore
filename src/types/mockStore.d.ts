@@ -26,3 +26,9 @@ export interface usersJSON {
 export interface gamesJSON {
   games: Array<IGameData>;
 }
+
+
+export interface dataSearchProducts {
+  screen: string;
+  text: string;
+}

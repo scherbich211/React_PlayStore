@@ -66,7 +66,8 @@ export const useOnFocusElement = ({ ref }: Props) => {
 
 export const useFilteredGames = (
   name: "PC" | "Playstation 5" | "XBox One",
-  filter: IFilter
+  filter: IFilter,
+  searchText: string
 ): [Array<IGameData>, boolean] => {
   const [games, setGames] = useState<Array<IGameData>>([]);
 
@@ -74,8 +75,8 @@ export const useFilteredGames = (
 
   useEffect(() => {
     setGames([]);
-    filterStart(name);
-  }, [name, filter]);
+    filterStart({ screen: name, text: searchText === "" ? "empty" : searchText });
+  }, [name, filter, searchText]);
 
   useEffect(() => {
     if (isSuccess && data) {

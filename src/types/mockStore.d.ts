@@ -2,10 +2,12 @@ export interface IGameData {
   id: number;
   name: string;
   price: string;
+  genre: string;
   route: string;
+  rating: number;
   descriptionBack: string;
   age: string;
-  permission: Array<"PC" | "Platstation" | "XBox">;
+  permission: Array<"PC" | "Playstation 5" | "XBox One">;
 }
 
 export interface IUser {
@@ -23,4 +25,10 @@ export interface usersJSON {
 
 export interface gamesJSON {
   games: Array<IGameData>;
+}
+
+
+export interface dataSearchProducts {
+  screen: string;
+  text: string;
 }

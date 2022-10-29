@@ -7,7 +7,7 @@ import NavBar from "./components/Header/Header";
 import Modal from "./components/Modal";
 import About from "./pages/About";
 import Home from "./pages/Home/Home";
-import Products from "./pages/Products";
+import Products from "./pages/Products/Products";
 import Profile from "./pages/Profile/Profile";
 import { useAppSelector } from "./hooks";
 import ProtectedRoute from "./sharedScreens/ProtectRoute/ProtectRoute";

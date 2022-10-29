@@ -7,7 +7,7 @@ import nodePath from "path";
 import { IUser, usersJSON, gamesJSON } from "@/types/mockStore";
 import express from "express";
 
-export default webpackMockServer.add((app) => {
+export default webpackMockServer.add((app, helper) => {
   // it resolves body
   const bodyParser = require("body-parser");
 
@@ -29,12 +29,24 @@ export default webpackMockServer.add((app) => {
 
   // fake delay
   app.use((_req, _res, next) => {
-    setTimeout(next, 1000);
+    setTimeout(next, helper.getRandomInt(0, 500));
   });
 
   app.get("/getTopProducts", (_req, res) => {
-    res.status(200).json(contentGames.games);
+    res.status(200).json(contentGames.games.slice(0, 3));
   });
+
+  app.get("/getScreenProducts/:screen/:text", (req, res) => {
+    const { screen, text } = req.params as { screen: "Playstation 5" | "PC" | "XBox One"; text: string };
+    const data = contentGames.games.filter((el) => el.permission.indexOf(screen) !== -1);
+    if (text === "empty") {
+      res.status(200).json(data);
+    } else {
+      const filteredByName = data.filter((el) => el.name.toLowerCase().startsWith(text.toLowerCase()));
+      res.status(200).json(filteredByName);
+    }
+  });
+
   app.get("/search/:text", (req, res) => {
     const { text } = req.params;
     const { games } = contentGames;

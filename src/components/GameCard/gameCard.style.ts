@@ -57,10 +57,11 @@ export const FlipCardInner = styled.div`
   background-color: ${colors.BLACK};
 `;
 
-export const ListItem = styled.div`
-  width: 21%;
-  height: 40vw;
+export const ListItem = styled.div<{ width?: string }>`
+  width: ${(props) => (props.width ? props.width : "21%")};
+  height: 44rem;
   perspective: 1000px;
+  margin-bottom: 3rem;
   :hover ${FlipCardInner} {
     transform: rotateY(180deg);
   }

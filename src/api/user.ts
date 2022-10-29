@@ -1,12 +1,19 @@
-import { IGameData, IUser } from "@/types/mockStore";
+import { dataSearchProducts, IGameData, IUser } from "@/types/mockStore";
 import { useRequestMutation, useRequestQuery } from "./axiosHooks";
 
-const useGetGamesMutation = () => useRequestQuery<Array<IGameData>, string>({ url: "getTopProducts/", method: "get" });
+const useGetGamesQuery = () => useRequestQuery<Array<IGameData>, string>({ url: "getTopProducts/", method: "get" });
 
 const useSearchMutation = () =>
   useRequestMutation<Array<IGameData>, string>({
     query: (data) => ({
       url: `search/${data}`,
+      method: "get",
+    }),
+  });
+const useScreenProductsMutation = () =>
+  useRequestMutation<Array<IGameData>, dataSearchProducts>({
+    query: (data) => ({
+      url: `getScreenProducts/${data?.screen}/${data?.text}`,
       method: "get",
     }),
   });
@@ -55,7 +62,7 @@ const useChangePassword = () =>
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  useGetGamesMutation,
+  useGetGamesQuery,
   useSearchMutation,
   useSignUpMutation,
   useSignInMutation,
@@ -64,4 +71,5 @@ export {
   useUserQuery,
   useSaveProfile,
   useChangePassword,
+  useScreenProductsMutation,
 };

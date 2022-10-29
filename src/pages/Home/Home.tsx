@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import CategoriesList from "./components/CategoryList";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "../../components/SearchBar";
 import GameList from "./components/GameList";
 import * as S from "./home.style";
 

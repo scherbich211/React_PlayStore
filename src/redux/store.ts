@@ -2,7 +2,7 @@ import { combineReducers, configureStore, Middleware } from "@reduxjs/toolkit";
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import storage from "redux-persist/lib/storage";
-import { user, modal, alert } from "./reducers";
+import { user, modal, alert, cart } from "./reducers";
 
 const persistConfig = {
   key: "root",
@@ -14,6 +14,7 @@ const reducer = combineReducers({
   user,
   modal,
   alert,
+  cart,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

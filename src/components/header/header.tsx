@@ -8,6 +8,7 @@ import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
 import { useLogOutMutation } from "@/api/user";
 import { changeLogOut } from "@/redux/reducers/user";
 import { useNavigate } from "react-router-dom";
+import { changeCart } from "@/redux/reducers/cart";
 import { Bars, Nav, NavLink, NavMenu, NavLinkLogo, NavButton } from "./header.style";
 import Dropdown from "../Dropdown/Dropdown";
 
@@ -52,6 +53,7 @@ const NavBar: React.FC = () => {
     clear();
     navigate(Route.Home);
     dispatch(changeLogOut());
+    dispatch(changeCart([]));
   };
 
   return (
@@ -82,9 +84,9 @@ const NavBar: React.FC = () => {
                 {user?.login}
               </div>
             </NavLink>
-            <NavButton>
+            <NavLink to={Route.Cart} onClick={closeMobileMenu}>
               <AiOutlineShoppingCart size={28} color={colors.GRAY} />
-            </NavButton>
+            </NavLink>
             <NavButton onClick={() => handleLogOut()}>
               <RiLogoutBoxRFill size={28} color={colors.GRAY} />
             </NavButton>

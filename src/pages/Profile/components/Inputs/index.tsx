@@ -10,11 +10,16 @@ import ParseTextarea from "./description";
 
 type FormState = {
   username: string;
+  balance: string;
   description: string;
 };
 
 const schhema = Yup.object().shape({
   username: Yup.string().min(3),
+  balance: Yup.string()
+    .min(0)
+    .matches(/(?<!-)(?<!\d)[1-9][0-9]*\d*(?:\.\d{0,2})?/)
+    .required(),
   description: Yup.string(),
 });
 interface IChangeUser {
@@ -36,6 +41,7 @@ const Inputs: React.FC<IChangeUser> = (props) => {
 
   useEffect(() => {
     setValue("username", props.newUser.login);
+    setValue("balance", props.newUser.login);
     setValue("description", props.newUser.description);
   }, []);
 
@@ -73,6 +79,20 @@ const Inputs: React.FC<IChangeUser> = (props) => {
           />
         )}
         name="username"
+      />
+      <span style={{ marginTop: "20px" }}>Balance</span>
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <CustomInput
+            value={value === undefined ? value : value.trim()}
+            onChange={onChange}
+            type="number"
+            error={Boolean(errors.balance)}
+            style={{ borderRadius: "0px" }}
+          />
+        )}
+        name="balance"
       />
       <span style={{ marginTop: "20px" }}>Profile description</span>
       <Controller

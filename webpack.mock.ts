@@ -35,6 +35,9 @@ export default webpackMockServer.add((app, helper) => {
   app.get("/getTopProducts", (_req, res) => {
     res.status(200).json(contentGames.games.slice(0, 3));
   });
+  app.get("/getAllProducts", (_req, res) => {
+    res.status(200).json(contentGames.games);
+  });
 
   app.get("/getScreenProducts/:screen/:text", (req, res) => {
     const { screen, text } = req.params as { screen: "Playstation 5" | "PC" | "XBox One"; text: string };
@@ -63,6 +66,7 @@ export default webpackMockServer.add((app, helper) => {
         password,
         description: "",
         profileImage: "",
+        balance: "0",
       };
       contentUsers.users = [...contentUsers.users, newUser];
       contentUsers.authorized = newUser.id;
@@ -106,7 +110,7 @@ export default webpackMockServer.add((app, helper) => {
   });
   app.post("/saveProfile", (req, res) => {
     try {
-      const { login, description, profileImage } = req.body as IUser;
+      const { login, description, profileImage, balance } = req.body as IUser;
       const dataUser = contentUsers.users.filter((el) => el.id === contentUsers.authorized)[0];
       const updateUser: IUser = {
         id: dataUser.id,
@@ -114,6 +118,7 @@ export default webpackMockServer.add((app, helper) => {
         password: dataUser.password,
         description,
         profileImage,
+        balance,
       };
       contentUsers.users[contentUsers.authorized] = updateUser;
       fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));

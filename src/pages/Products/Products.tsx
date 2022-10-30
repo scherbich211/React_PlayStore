@@ -3,7 +3,10 @@ import Loader from "@/components/Loader/loader.styles";
 import SearchBar from "@/components/SearchBar";
 import { useAppDispatch, useFilteredGames } from "@/hooks";
 import { setSnackBar } from "@/redux/reducers/alert";
+import { addCart } from "@/redux/reducers/cart";
 import { Time } from "@/types/alert";
+import { ICartItem } from "@/types/cart";
+import { IGameData } from "@/types/mockStore";
 import { IFilter } from "@/types/products";
 import { getValueAtIndex } from "@/utils/mics";
 import { useEffect, useState } from "react";
@@ -25,8 +28,17 @@ function Products() {
     selectedAge: "All ages",
   });
   const [games, isLoading] = useFilteredGames(name, filter, searchText);
-
-  const handlePress = () => {
+  const handlePress = (value: IGameData) => {
+    const dataToAdd: ICartItem = {
+      id: value.id,
+      date: new Date().toISOString(),
+      platform: name,
+      amount: 1,
+      name: value.name,
+      price: value.price,
+      permission: value.permission,
+    };
+    dispatch(addCart(dataToAdd));
     dispatch(
       setSnackBar({
         time: Time.MEDIUM,

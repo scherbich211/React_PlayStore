@@ -20,9 +20,9 @@ export default function SortDropdown<T>(props: IProps<T>) {
   };
 
   return (
-    <S.Container>
+    <S.Container onClick={toggling}>
       <S.DropDownContainer>
-        <S.DropDownHeader onClick={toggling}>{selectedOption || "Mangoes"}</S.DropDownHeader>
+        <S.DropDownHeader>{selectedOption || "PC"}</S.DropDownHeader>
         {isOpen && (
           <S.DropDownListContainer>
             <S.DropDownList>

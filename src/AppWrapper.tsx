@@ -11,6 +11,7 @@ import Products from "./pages/Products/Products";
 import Profile from "./pages/Profile/Profile";
 import { useAppSelector } from "./hooks";
 import ProtectedRoute from "./sharedScreens/ProtectRoute/ProtectRoute";
+import Cart from "./pages/Cart/Cart";
 
 const AppWrapper = () => {
   const { type, active } = useAppSelector((state) => state.modal);
@@ -37,6 +38,7 @@ const AppWrapper = () => {
           }
         />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />

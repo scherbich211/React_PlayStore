@@ -10,6 +10,7 @@ const initialState: IUserRedux = {
     password: "",
     description: "",
     profileImage: "",
+    balance: "0",
   },
 };
 

@@ -73,6 +73,7 @@ const Authorization: React.FC = () => {
       password: getValues("password"),
       description: "",
       profileImage: "",
+      balance: "0",
     };
     if (signUpProp) {
       signUp(user);

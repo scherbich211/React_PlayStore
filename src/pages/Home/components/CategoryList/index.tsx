@@ -7,21 +7,24 @@ const categoriesListData = [
   {
     name: "PC",
     source: Windows,
+    path: "/products/pc",
   },
   {
     name: "Playstation 5",
     source: Playstation,
+    path: "/products/playstation",
   },
   {
     name: "XBox One",
     source: Xbox,
+    path: "/products/xbox",
   },
 ];
 
 const CategoriesList = () => (
   <WrapperList>
     {categoriesListData.map((el) => (
-      <ListItem key={el.name} onClick={() => console.log(1)}>
+      <ListItem key={el.name} to={el.path}>
         <Img src={el.source} />
         <h1>{el.name}</h1>
       </ListItem>

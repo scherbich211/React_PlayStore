@@ -1,4 +1,5 @@
 import colors from "@/styles/colors";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const WrapperList = styled.div`
@@ -9,7 +10,7 @@ export const WrapperList = styled.div`
   display: flex;
 `;
 
-export const ListItem = styled.div`
+export const ListItem = styled(Link)`
   width: 27%;
   border: 2px solid ${colors.WHITE};
   border-bottom: 10px solid ${colors.WHITE};
@@ -20,6 +21,7 @@ export const ListItem = styled.div`
   justify-content: space-evenly;
   background-color: ${colors.BLACK};
   padding-block: 2rem;
+  text-decoration: none;
   :hover {
     border-color: ${colors.PURPURE};
   }

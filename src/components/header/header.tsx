@@ -67,7 +67,7 @@ const NavBar: React.FC = () => {
           Home
         </NavLink>
         <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          <NavLink to={Route.Products} onClick={closeMobileMenu}>
+          <NavLink to={Route.Products} onClick={closeMobileMenu} style={{ pointerEvents: "none" }}>
             Products
             {dropdown ? <AiFillCaretUp /> : <AiFillCaretDown />}
           </NavLink>

@@ -35,6 +35,9 @@ export default webpackMockServer.add((app, helper) => {
   app.get("/getTopProducts", (_req, res) => {
     res.status(200).json(contentGames.games.slice(0, 3));
   });
+  app.get("/getAllProducts", (_req, res) => {
+    res.status(200).json(contentGames.games);
+  });
 
   app.get("/getScreenProducts/:screen/:text", (req, res) => {
     const { screen, text } = req.params as { screen: "Playstation 5" | "PC" | "XBox One"; text: string };
@@ -63,10 +66,11 @@ export default webpackMockServer.add((app, helper) => {
         password,
         description: "",
         profileImage: "",
+        balance: "0",
       };
       contentUsers.users = [...contentUsers.users, newUser];
       contentUsers.authorized = newUser.id;
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json(newUser);
     } catch (error) {
       console.log(error);
@@ -79,7 +83,7 @@ export default webpackMockServer.add((app, helper) => {
       const dataUser = contentUsers.users.filter((el) => el.login === login && el.password === password);
       if (dataUser.length > 0) {
         contentUsers.authorized = dataUser[0].id;
-        fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+        fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
         res.status(201).json(dataUser[0]);
       } else {
         res.status(400).send({ message: `Wrong login or username` });
@@ -92,7 +96,7 @@ export default webpackMockServer.add((app, helper) => {
   app.post("/auth/logOut", (_req, res) => {
     try {
       contentUsers.authorized = -1;
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       res.status(400).send({ message: `Server error` });
@@ -106,7 +110,7 @@ export default webpackMockServer.add((app, helper) => {
   });
   app.post("/saveProfile", (req, res) => {
     try {
-      const { login, description, profileImage } = req.body as IUser;
+      const { login, description, profileImage, balance } = req.body as IUser;
       const dataUser = contentUsers.users.filter((el) => el.id === contentUsers.authorized)[0];
       const updateUser: IUser = {
         id: dataUser.id,
@@ -114,9 +118,10 @@ export default webpackMockServer.add((app, helper) => {
         password: dataUser.password,
         description,
         profileImage,
+        balance,
       };
       contentUsers.users[contentUsers.authorized] = updateUser;
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       console.log(error);
@@ -128,7 +133,7 @@ export default webpackMockServer.add((app, helper) => {
       const { password } = req.body as { password: string };
       const dataUser = contentUsers.users.filter((el) => el.id === contentUsers.authorized)[0];
       contentUsers.users[contentUsers.authorized] = { ...dataUser, password };
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       console.log(error);

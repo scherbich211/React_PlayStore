@@ -16,6 +16,7 @@ export interface IUser {
   password: string;
   description: string;
   profileImage: string;
+  balance: string;
 }
 
 export interface usersJSON {

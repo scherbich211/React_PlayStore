@@ -4,7 +4,7 @@ import * as S from "./gameCard.style";
 
 interface IProps {
   card: IGameData;
-  handlePress: () => void;
+  handlePress: (value: IGameData) => void;
   width?: string;
 }
 
@@ -12,7 +12,7 @@ const GameCard: React.FC<IProps> = (props) => {
   const { name, route, price, descriptionBack, age, rating } = props.card;
 
   return (
-    <S.ListItem onClick={props.handlePress} width={props.width}>
+    <S.ListItem width={props.width}>
       <S.FlipCardInner>
         <S.Front>
           <S.Img src={route} />
@@ -29,7 +29,7 @@ const GameCard: React.FC<IProps> = (props) => {
         <S.Back>
           <S.BackText>{descriptionBack}</S.BackText>
           <S.BackTextAge>{age}+</S.BackTextAge>
-          <S.BackButton onClick={() => props.handlePress()}>
+          <S.BackButton onClick={() => props.handlePress(props.card)}>
             <span>Add to cart</span>
           </S.BackButton>
         </S.Back>

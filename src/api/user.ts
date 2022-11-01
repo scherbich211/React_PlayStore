@@ -2,6 +2,7 @@ import { dataSearchProducts, IGameData, IUser } from "@/types/mockStore";
 import { useRequestMutation, useRequestQuery } from "./axiosHooks";
 
 const useGetGamesQuery = () => useRequestQuery<Array<IGameData>, string>({ url: "getTopProducts/", method: "get" });
+const useGetAllGamesQuery = () => useRequestQuery<Array<IGameData>, string>({ url: "getAllProducts/", method: "get" });
 
 const useSearchMutation = () =>
   useRequestMutation<Array<IGameData>, string>({
@@ -72,4 +73,5 @@ export {
   useSaveProfile,
   useChangePassword,
   useScreenProductsMutation,
+  useGetAllGamesQuery,
 };

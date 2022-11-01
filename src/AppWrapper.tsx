@@ -3,7 +3,6 @@ import AlertInfo from "./components/Alert/HOCAlert";
 import Authorization from "./components/Authorization";
 import ChangePassword from "./components/ChangePassword";
 import Footer from "./components/Footer/Footer";
-import NavBar from "./components/Header/Header";
 import Modal from "./components/Modal";
 import About from "./pages/About";
 import Home from "./pages/Home/Home";
@@ -12,6 +11,7 @@ import Profile from "./pages/Profile/Profile";
 import { useAppSelector } from "./hooks";
 import ProtectedRoute from "./sharedScreens/ProtectRoute/ProtectRoute";
 import Cart from "./pages/Cart/Cart";
+import NavBar from "./components/Header/header";
 
 const AppWrapper = () => {
   const { type, active } = useAppSelector((state) => state.modal);

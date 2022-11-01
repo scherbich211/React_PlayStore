@@ -9,10 +9,8 @@ export const TextGame = styled.span`
 `;
 
 export const StarWrapper = styled.div`
-  display: flex;
   margin-inline: 10px;
   justify-content: space-between;
-  width: 50%;
   margin-bottom: 2rem;
 `;
 

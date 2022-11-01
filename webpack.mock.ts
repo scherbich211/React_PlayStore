@@ -70,7 +70,7 @@ export default webpackMockServer.add((app, helper) => {
       };
       contentUsers.users = [...contentUsers.users, newUser];
       contentUsers.authorized = newUser.id;
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json(newUser);
     } catch (error) {
       console.log(error);
@@ -83,7 +83,7 @@ export default webpackMockServer.add((app, helper) => {
       const dataUser = contentUsers.users.filter((el) => el.login === login && el.password === password);
       if (dataUser.length > 0) {
         contentUsers.authorized = dataUser[0].id;
-        fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+        fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
         res.status(201).json(dataUser[0]);
       } else {
         res.status(400).send({ message: `Wrong login or username` });
@@ -96,7 +96,7 @@ export default webpackMockServer.add((app, helper) => {
   app.post("/auth/logOut", (_req, res) => {
     try {
       contentUsers.authorized = -1;
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       res.status(400).send({ message: `Server error` });
@@ -121,7 +121,7 @@ export default webpackMockServer.add((app, helper) => {
         balance,
       };
       contentUsers.users[contentUsers.authorized] = updateUser;
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       console.log(error);
@@ -133,7 +133,7 @@ export default webpackMockServer.add((app, helper) => {
       const { password } = req.body as { password: string };
       const dataUser = contentUsers.users.filter((el) => el.id === contentUsers.authorized)[0];
       contentUsers.users[contentUsers.authorized] = { ...dataUser, password };
-      fs.writeFileSync("response.json", JSON.stringify(contentUsers, null, 2));
+      fs.writeFileSync("./dataJSON/users.json", JSON.stringify(contentUsers, null, 2));
       res.status(200).json();
     } catch (error) {
       console.log(error);

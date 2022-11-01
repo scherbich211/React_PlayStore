@@ -41,11 +41,12 @@ const Inputs: React.FC<IChangeUser> = (props) => {
 
   useEffect(() => {
     setValue("username", props.newUser.login);
-    setValue("balance", props.newUser.login);
+    setValue("balance", props.newUser.balance);
     setValue("description", props.newUser.description);
   }, []);
 
   const debouncedLogin = useDebounce(watch("username"), 500);
+  const debouncedBalance = useDebounce(watch("balance"), 500);
   const debouncedDescription = useDebounce(watch("description"), 500);
 
   useEffect(() => {
@@ -59,6 +60,12 @@ const Inputs: React.FC<IChangeUser> = (props) => {
       props.setNewUser({ ...props.newUser, description: debouncedDescription });
     }
   }, [debouncedDescription]);
+
+  useEffect(() => {
+    if (debouncedBalance) {
+      props.setNewUser({ ...props.newUser, balance: debouncedBalance });
+    }
+  }, [debouncedBalance]);
 
   useEffect(() => {
     props.setIsValid(isValid);

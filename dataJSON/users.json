@@ -7,7 +7,7 @@
       "password": "1234567bB!",
       "description": "aaaaaaaaaaaaaaaaaaaaaabbb\nccc\nfff\nsss\nggg\nrrr",
       "profileImage": "",
-      "balance": "35"
+      "balance": "38"
     },
     {
       "id": 1,
@@ -15,7 +15,7 @@
       "password": "1234567bB!",
       "description": "sasha",
       "profileImage": "",
-       "balance": "35"
+      "balance": "35"
     }
   ]
 }

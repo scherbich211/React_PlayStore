@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { changeCart } from "@/redux/reducers/cart";
 import { ICartItem } from "@/types/cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as S from "./table.style";
 import TableItem from "./tableItem";
 
@@ -34,6 +34,10 @@ const Table = () => {
     };
     checkbox.map((el) => newData.map((item) => item.id === el && deleteR(el)));
   };
+
+  useEffect(() => {
+    setCartGames(games);
+  }, [games]);
 
   return (
     <S.TableContainer>

@@ -3,11 +3,11 @@
   "users": [
     {
       "id": 0,
-      "login": "sasha1",
+      "login": "admin",
       "password": "1234567bB!",
-      "description": "aaaaaaaaaaaaaaaaaaaaaabbb\nccc\nfff\nsss\nggg\nrrr",
+      "description": "This is admin",
       "profileImage": "",
-      "balance": "38"
+      "balance": "1000000000"
     },
     {
       "id": 1,

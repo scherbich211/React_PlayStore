@@ -26,6 +26,29 @@ const useSignUpMutation = () =>
       body,
     }),
   });
+const useAddGameMutation = () =>
+  useRequestMutation<IGameData, IGameData>({
+    query: (body) => ({
+      url: "product/",
+      method: "post",
+      body,
+    }),
+  });
+const useEditGameMutation = () =>
+  useRequestMutation<IGameData, IGameData>({
+    query: (body) => ({
+      url: "product/",
+      method: "put",
+      body,
+    }),
+  });
+const useDeleteGameMutation = () =>
+  useRequestMutation<string, string>({
+    query: (body) => ({
+      url: `product/${body}`,
+      method: "delete",
+    }),
+  });
 const useSignInMutation = () =>
   useRequestMutation<IUser, IUser>({
     query: (body) => ({
@@ -74,4 +97,7 @@ export {
   useChangePassword,
   useScreenProductsMutation,
   useGetAllGamesQuery,
+  useAddGameMutation,
+  useEditGameMutation,
+  useDeleteGameMutation,
 };

@@ -12,6 +12,7 @@ const initialState: IUserRedux = {
     profileImage: "",
     balance: "0",
   },
+  isAdmin: false,
 };
 
 export const userSlice = createSlice({
@@ -24,15 +25,19 @@ export const userSlice = createSlice({
     changeUser: (state, action: PayloadAction<IUserRedux["user"]>) => {
       state.user = action.payload;
     },
+    changeAdmin: (state, action: PayloadAction<IUserRedux["isAdmin"]>) => {
+      state.isAdmin = action.payload;
+    },
     changeLogOut: (state) => {
       state.user = initialState.user;
       state.isSignedIn = initialState.isSignedIn;
+      state.isAdmin = initialState.isSignedIn;
     },
   },
 });
 
 const { actions, reducer } = userSlice;
 
-export const { changeUserIsSignedIn, changeUser, changeLogOut } = actions;
+export const { changeUserIsSignedIn, changeUser, changeLogOut, changeAdmin } = actions;
 
 export default reducer;

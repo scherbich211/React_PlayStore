@@ -12,10 +12,10 @@ import { useAppSelector } from "./hooks";
 import ProtectedRoute from "./sharedScreens/ProtectRoute/ProtectRoute";
 import Cart from "./pages/Cart/Cart";
 import NavBar from "./components/Header/header";
+import AdminEdit from "./components/AdminModal";
 
 const AppWrapper = () => {
   const { type, active } = useAppSelector((state) => state.modal);
-
   return (
     <>
       <NavBar />
@@ -45,6 +45,7 @@ const AppWrapper = () => {
       <Modal active={active}>
         {(type === "signIn" || type === "signUp") && <Authorization />}
         {type === "password" && <ChangePassword />}
+        {(type === "adminEdit" || type === "adminAdd") && <AdminEdit />}
       </Modal>
       <AlertInfo />
     </>

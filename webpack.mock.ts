@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import nodePath from "path";
-import { IUser, usersJSON, gamesJSON } from "@/types/mockStore";
+import { IUser, usersJSON, gamesJSON, IGameData } from "@/types/mockStore";
 import express from "express";
 
 export default webpackMockServer.add((app, helper) => {
@@ -93,6 +93,53 @@ export default webpackMockServer.add((app, helper) => {
       res.status(400).send({ message: `Server error` });
     }
   });
+  app.post("/product", (req, res) => {
+    try {
+      const pidor = req.body as IGameData;
+      const newData: IGameData = {
+        ...pidor,
+        id: contentGames.games.length,
+      };
+      if (newData) {
+        contentGames.games = [...contentGames.games, newData];
+        fs.writeFileSync("./dataJSON/games.json", JSON.stringify(contentGames, null, 2));
+        res.status(201).json(newData);
+      } else {
+        res.status(400).send({ message: `Wrong login or username` });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: `Server error` });
+    }
+  });
+  app.put("/product", (req, res) => {
+    try {
+      const pidor = req.body as IGameData;
+      const findGame = contentGames.games.filter((el) => el.id === pidor.id)[0];
+      const updateGame: IGameData = {
+        ...pidor,
+        id: findGame.id,
+      };
+      contentGames.games[findGame.id] = updateGame;
+      fs.writeFileSync("./dataJSON/games.json", JSON.stringify(contentGames, null, 2));
+      res.status(200).json(updateGame);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: `Server error` });
+    }
+  });
+  app.delete("/product/:id", (req, res) => {
+    try {
+      const { id } = req.params;
+      const filteredArr = contentGames.games.filter((el) => el.id !== Number(id));
+      contentGames.games = filteredArr;
+      fs.writeFileSync("./dataJSON/games.json", JSON.stringify(contentGames, null, 2));
+      res.status(200).json();
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: `Server error` });
+    }
+  });
   app.post("/auth/logOut", (_req, res) => {
     try {
       contentUsers.authorized = -1;
@@ -128,6 +175,7 @@ export default webpackMockServer.add((app, helper) => {
       res.status(400).send({ message: `Server error` });
     }
   });
+
   app.post("/changePassword", (req, res) => {
     try {
       const { password } = req.body as { password: string };

@@ -18,33 +18,47 @@ interface ICustomInput {
 }
 
 const CustomInput: React.FC<ICustomInput> = (props) => {
-  const pidor = 0;
+  const {
+    onChange,
+    onBlur,
+    value,
+    placeholder,
+    right,
+    onRightPress,
+    type,
+    error,
+    style,
+    styleWrapper,
+    textArea,
+    textAreaOnChange,
+    maxLength,
+  } = props;
 
   return (
-    <InputWrapper style={props.styleWrapper}>
-      {props.textArea ? (
+    <InputWrapper style={styleWrapper}>
+      {textArea ? (
         <InputArea
-          placeholder={props.placeholder}
-          value={props.value}
-          maxLength={props.maxLength || 150}
-          error={props.error}
-          style={props.style}
-          onChange={props.textAreaOnChange}
+          placeholder={placeholder}
+          value={value}
+          maxLength={maxLength || 150}
+          error={error}
+          style={style}
+          onChange={textAreaOnChange}
         />
       ) : (
         <Input
-          onChange={props.onChange}
-          onBlur={props.onBlur}
-          placeholder={props.placeholder}
-          type={props.type}
-          value={props.value}
-          maxLength={props.maxLength || 30}
-          error={props.error}
-          style={props.style}
+          onChange={onChange}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          type={type}
+          value={value}
+          maxLength={maxLength || 30}
+          error={error}
+          style={style}
         />
       )}
 
-      {props.right ? <RightDiv onClick={props.onRightPress}>{props.right}</RightDiv> : null}
+      {right ? <RightDiv onClick={onRightPress}>{right}</RightDiv> : null}
     </InputWrapper>
   );
 };

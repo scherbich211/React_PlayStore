@@ -1,5 +1,5 @@
-import { useDeleteGameMutation, useEditGameMutation } from "@/api/user";
-import { useAppDispatch } from "@/hooks";
+import { useAddGameMutation, useEditGameMutation } from "@/api/user";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { clearCard } from "@/redux/reducers/admin";
 import { changeModalActive } from "@/redux/reducers/modal";
 import { IGameData } from "@/types/mockStore";
@@ -24,18 +24,22 @@ interface IProps {
     price: string;
     image: string;
   }>;
+  setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
+  isModal: boolean;
 }
 
 const ButtonsPart: React.FC<IProps> = (props) => {
-  const { editCard, name, price, genre, route, descriptionBack, age, permission, errors } = props;
+  const { editCard, name, price, genre, route, descriptionBack, age, permission, errors, setIsModal, isModal } = props;
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-  const [deleteCard, { isLoading, isSuccess }] = useDeleteGameMutation();
+  const { type } = useAppSelector((state) => state.modal);
+
   const [putNewCard, { isLoading: isLoadingEdit, isSuccess: isSuccessEdit }] = useEditGameMutation();
+  const [postNewCard, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] = useAddGameMutation();
 
   const handleDelete = () => {
-    deleteCard(editCard.id.toString());
+    setIsModal(true);
   };
 
   const handleSubmit = () => {
@@ -44,23 +48,21 @@ const ButtonsPart: React.FC<IProps> = (props) => {
       name,
       price,
       genre,
-      route,
+      route:
+        route === ""
+          ? "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
+          : route,
       rating: 5,
       descriptionBack,
       age,
       permission,
     };
-    console.log(newData);
-    putNewCard(newData);
-  };
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(changeModalActive(false));
-      dispatch(clearCard());
-      redirect(location.pathname);
+    if (type === "adminEdit") {
+      putNewCard(newData);
+    } else {
+      postNewCard(newData);
     }
-  }, [isSuccess]);
+  };
 
   useEffect(() => {
     if (isSuccessEdit) {
@@ -69,24 +71,36 @@ const ButtonsPart: React.FC<IProps> = (props) => {
       redirect(location.pathname);
     }
   }, [isSuccessEdit]);
+  useEffect(() => {
+    if (isSuccessAdd) {
+      dispatch(changeModalActive(false));
+      dispatch(clearCard());
+      redirect(location.pathname);
+    }
+  }, [isSuccessAdd]);
+
   return (
     <S.ButtonsWrapper>
       <S.ButtonSubmit
         onClick={handleSubmit}
         disabled={
           isLoadingEdit ||
-          isLoading ||
           Boolean(errors.category) ||
           Boolean(errors.price) ||
           Boolean(errors.image) ||
-          Boolean(errors.name)
+          Boolean(errors.name) ||
+          permission.length === 0 ||
+          isLoadingAdd ||
+          isModal
         }
       >
         <span>Submit</span>
       </S.ButtonSubmit>
-      <S.ButtonSubmit onClick={handleDelete} disabled={isLoadingEdit || isLoading}>
-        <span>Delete Card</span>
-      </S.ButtonSubmit>
+      {type === "adminEdit" && (
+        <S.ButtonSubmit onClick={handleDelete} disabled={isLoadingEdit || isModal}>
+          <span>Delete Card</span>
+        </S.ButtonSubmit>
+      )}
     </S.ButtonsWrapper>
   );
 };

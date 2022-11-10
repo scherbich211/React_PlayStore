@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { IUser } from "@/types/mockStore";
 import { useSignInMutation, useSignUpMutation } from "@/api/user";
 import { changeModalActive } from "@/redux/reducers/modal";
-import { changeUser, changeUserIsSignedIn } from "@/redux/reducers/user";
+import { changeAdmin, changeUser, changeUserIsSignedIn } from "@/redux/reducers/user";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Route } from "@/utils/routing";
 import CustomInput from "../CustomInput";
@@ -79,6 +79,7 @@ const Authorization: React.FC = () => {
       signUp(user);
     } else {
       signIn(user);
+      getValues("login") === "admin" && dispatch(changeAdmin(true));
     }
   };
 

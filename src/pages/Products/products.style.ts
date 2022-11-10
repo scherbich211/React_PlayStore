@@ -56,3 +56,10 @@ export const Underline = styled.div`
   margin: 20px 0 20px;
   display: block;
 `;
+
+export const SearchContainer = styled.div`
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;

@@ -38,6 +38,6 @@ export const userSlice = createSlice({
 
 const { actions, reducer } = userSlice;
 
-export const { changeUserIsSignedIn, changeUser, changeLogOut } = actions;
+export const { changeUserIsSignedIn, changeUser, changeLogOut, changeAdmin } = actions;
 
 export default reducer;

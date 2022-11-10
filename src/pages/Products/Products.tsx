@@ -1,9 +1,10 @@
 import GameCard from "@/components/GameCard";
 import Loader from "@/components/Loader/loader.styles";
 import SearchBar from "@/components/SearchBar";
-import { useAppDispatch, useFilteredGames } from "@/hooks";
+import { useAppDispatch, useAppSelector, useFilteredGames } from "@/hooks";
 import { setSnackBar } from "@/redux/reducers/alert";
 import { addCart } from "@/redux/reducers/cart";
+import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
 import { Time } from "@/types/alert";
 import { ICartItem } from "@/types/cart";
 import { IGameData } from "@/types/mockStore";
@@ -11,12 +12,15 @@ import { IFilter } from "@/types/products";
 import { getValueAtIndex } from "@/utils/mics";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { ButtonSubmit } from "../Profile/profile.style";
 import SortPart from "./components/SortPart";
 import * as S from "./products.style";
 
 function Products() {
   const location = useLocation();
   const dispatch = useAppDispatch();
+
+  const { isAdmin } = useAppSelector((state) => state.user);
 
   const [name, setName] = useState<"PC" | "Playstation 5" | "XBox One">("PC");
   const [searchText, setSearchText] = useState("");
@@ -61,12 +65,24 @@ function Products() {
     }
   }, [location]);
 
+  const chooseModal = () => {
+    dispatch(changeModalActive(true));
+    dispatch(changeModalType("adminAdd"));
+  };
+
   return (
     <S.Container>
       <S.ContainerRow>
         <SortPart name={name} filter={filter} setFilter={setFilter} />
         <S.ContainerColumn>
-          <SearchBar products setTextSearch={setSearchText} />
+          <S.SearchContainer>
+            <SearchBar products setTextSearch={setSearchText} />
+            {isAdmin && (
+              <ButtonSubmit onClick={chooseModal}>
+                <span>Add Game</span>
+              </ButtonSubmit>
+            )}
+          </S.SearchContainer>
           <S.Wrapper width="100%">
             <S.WrapperFlex>
               {isLoading ? (

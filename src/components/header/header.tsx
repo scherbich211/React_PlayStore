@@ -6,7 +6,7 @@ import colors from "@/styles/colors";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
 import { useLogOutMutation } from "@/api/user";
-import { changeLogOut } from "@/redux/reducers/user";
+import { changeAdmin, changeLogOut } from "@/redux/reducers/user";
 import { useNavigate } from "react-router-dom";
 import { changeCart } from "@/redux/reducers/cart";
 import { Bars, Nav, NavLink, NavMenu, NavLinkLogo, NavButton } from "./header.style";
@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { user, isSignedIn } = useAppSelector((state) => state.user);
+  const { user, isSignedIn, isAdmin } = useAppSelector((state) => state.user);
 
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -54,6 +54,7 @@ const NavBar: React.FC = () => {
     navigate(Route.Home);
     dispatch(changeLogOut());
     dispatch(changeCart([]));
+    isAdmin && dispatch(changeAdmin(false));
   };
 
   return (

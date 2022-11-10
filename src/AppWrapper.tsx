@@ -45,7 +45,7 @@ const AppWrapper = () => {
       <Modal active={active}>
         {(type === "signIn" || type === "signUp") && <Authorization />}
         {type === "password" && <ChangePassword />}
-        {type === "admin" && <AdminEdit />}
+        {(type === "adminEdit" || type === "adminAdd") && <AdminEdit />}
       </Modal>
       <AlertInfo />
     </>

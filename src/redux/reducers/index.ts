@@ -6,6 +6,8 @@ import alert from "./alert";
 
 import cart from "./cart";
 
+import admin from "./admin";
+
 export { user };
 
 export { modal };
@@ -13,3 +15,5 @@ export { modal };
 export { alert };
 
 export { cart };
+
+export { admin };

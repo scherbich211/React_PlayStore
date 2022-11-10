@@ -99,6 +99,9 @@ export const BackButton = styled.button`
   align-self: center;
   shape-outside: none;
   border: 0px;
+  :nth-child(4) {
+    margin-top: 20px;
+  }
   span {
     font-size: 18px;
     line-height: 22px;

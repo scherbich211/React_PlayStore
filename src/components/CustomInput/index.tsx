@@ -14,6 +14,7 @@ interface ICustomInput {
   styleWrapper?: React.CSSProperties | undefined;
   textArea?: boolean;
   textAreaOnChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  maxLength?: number;
 }
 
 const CustomInput: React.FC<ICustomInput> = (props) => {
@@ -25,7 +26,7 @@ const CustomInput: React.FC<ICustomInput> = (props) => {
         <InputArea
           placeholder={props.placeholder}
           value={props.value}
-          maxLength={150}
+          maxLength={props.maxLength || 150}
           error={props.error}
           style={props.style}
           onChange={props.textAreaOnChange}
@@ -37,7 +38,7 @@ const CustomInput: React.FC<ICustomInput> = (props) => {
           placeholder={props.placeholder}
           type={props.type}
           value={props.value}
-          maxLength={30}
+          maxLength={props.maxLength || 30}
           error={props.error}
           style={props.style}
         />

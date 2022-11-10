@@ -20,6 +20,8 @@ export const ModalWrapper = styled.div<IModalWrapper>`
   transition: 0.5s;
   opacity: ${(props) => (props.active ? 1 : 0)};
   pointer-events: ${(props) => (props.active ? "all" : "none")};
+  max-height: 100vh;
+  overflow-y: auto;
 `;
 
 export const ModalContent = styled.div<IModalContent>`
@@ -30,4 +32,5 @@ export const ModalContent = styled.div<IModalContent>`
   background-color: #121212;
   transform: ${(props) => (props.active ? "scale(1)" : "scale(0.5)")};
   transition: ${(props) => (props.active ? 0 : "0.4s all")};
+  margin-block: auto;
 `;

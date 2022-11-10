@@ -1,4 +1,7 @@
 import { Star } from "@/assets/svg/SVGIcons";
+import { useAppDispatch } from "@/hooks";
+import { editCard } from "@/redux/reducers/admin";
+import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
 import { IGameData } from "@/types/mockStore";
 import * as S from "./gameCard.style";
 
@@ -9,8 +12,13 @@ interface IProps {
 }
 
 const GameCard: React.FC<IProps> = (props) => {
+  const dispatch = useAppDispatch();
   const { name, route, price, descriptionBack, age, rating } = props.card;
-
+  const chooseModal = () => {
+    dispatch(changeModalActive(true));
+    dispatch(changeModalType("admin"));
+    dispatch(editCard(props.card));
+  };
   return (
     <S.ListItem width={props.width}>
       <S.FlipCardInner>
@@ -31,6 +39,9 @@ const GameCard: React.FC<IProps> = (props) => {
           <S.BackTextAge>{age}+</S.BackTextAge>
           <S.BackButton onClick={() => props.handlePress(props.card)}>
             <span>Add to cart</span>
+          </S.BackButton>
+          <S.BackButton onClick={chooseModal}>
+            <span>Edit</span>
           </S.BackButton>
         </S.Back>
       </S.FlipCardInner>

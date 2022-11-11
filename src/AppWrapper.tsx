@@ -1,45 +1,33 @@
 import { Routes, Route } from "react-router-dom";
+import React from "react";
 import AlertInfo from "./components/Alert/HOCAlert";
 import Authorization from "./components/Authorization";
 import ChangePassword from "./components/ChangePassword";
 import Footer from "./components/Footer/Footer";
 import Modal from "./components/Modal";
-import About from "./pages/About";
 import Home from "./pages/Home/Home";
-import Products from "./pages/Products/Products";
-import Profile from "./pages/Profile/Profile";
 import { useAppSelector } from "./hooks";
-import ProtectedRoute from "./sharedScreens/ProtectRoute/ProtectRoute";
-import Cart from "./pages/Cart/Cart";
 import NavBar from "./components/Header/header";
 import AdminEdit from "./components/AdminModal";
+import withSuspense from "./sharedScreens/Suspense";
 
 const AppWrapper = () => {
   const { type, active } = useAppSelector((state) => state.modal);
+
+  const ProfileContainer = React.lazy(() => import("./pages/Profile/Profile"));
+  const ProductContainer = React.lazy(() => import("./pages/Products/Products"));
+  const CartContainer = React.lazy(() => import("./pages/Cart/Cart"));
+  const AboutContainer = React.lazy(() => import("./pages/About"));
 
   return (
     <>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/about"
-          element={
-            <ProtectedRoute>
-              <About />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/products/:name"
-          element={
-            <ProtectedRoute>
-              <Products />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/about" element={withSuspense(AboutContainer)} />
+        <Route path="/products/:name" element={withSuspense(ProductContainer)} />
+        <Route path="/profile" element={withSuspense(ProfileContainer)} />
+        <Route path="/cart" element={withSuspense(CartContainer)} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />

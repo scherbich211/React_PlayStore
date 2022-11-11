@@ -4,10 +4,10 @@ import Loader from "@/components/Loader/loader.styles";
 import ProtectedRoute from "../ProtectRoute/ProtectRoute";
 
 const Content = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function withSuspense<T>(

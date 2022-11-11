@@ -10,7 +10,7 @@ import { changeAdmin, changeLogOut } from "@/redux/reducers/user";
 import { useNavigate } from "react-router-dom";
 import { changeCart } from "@/redux/reducers/cart";
 import { Bars, Nav, NavLink, NavMenu, NavLinkLogo, NavButton } from "./header.style";
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "../dropdown/Dropdown";
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();

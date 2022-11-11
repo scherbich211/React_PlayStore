@@ -1,7 +1,7 @@
 import GameCard from "@/components/GameCard";
 import Loader from "@/components/Loader/loader.styles";
 import SearchBar from "@/components/SearchBar";
-import { useAppDispatch, useAppSelector, useFilteredGames } from "@/hooks";
+import { useAppDispatch, useAppSelector, useFilteredGames, useMemoizedState } from "@/hooks";
 import { setSnackBar } from "@/redux/reducers/alert";
 import { addCart } from "@/redux/reducers/cart";
 import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
@@ -10,7 +10,7 @@ import { ICartItem } from "@/types/cart";
 import { IGameData } from "@/types/mockStore";
 import { IFilter } from "@/types/products";
 import { getValueAtIndex } from "@/utils/mics";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ButtonSubmit } from "../Profile/profile.style";
 import SortPart from "./components/SortPart";
@@ -22,16 +22,18 @@ function Products() {
 
   const { isAdmin } = useAppSelector((state) => state.user);
 
-  const [name, setName] = useState<"PC" | "Playstation 5" | "XBox One">("PC");
+  const [name, setName] = useMemoizedState<"PC" | "Playstation 5" | "XBox One">("PC");
   const [searchText, setSearchText] = useState("");
 
-  const [filter, setFilter] = useState<IFilter>({
+  const [filter, setFilter] = useMemoizedState<IFilter>({
     selectedCriteria: "Name",
     selectedType: "Hight to Low",
     selectedGenre: "All genres",
     selectedAge: "All ages",
   });
+
   const [games, isLoading] = useFilteredGames(name, filter, searchText);
+
   const handlePress = (value: IGameData) => {
     const dataToAdd: ICartItem = {
       id: value.id,
@@ -63,7 +65,7 @@ function Products() {
       default:
         return setName("PC");
     }
-  }, [location]);
+  }, [getValueAtIndex(4)]);
 
   const chooseModal = () => {
     dispatch(changeModalActive(true));
@@ -90,7 +92,7 @@ function Products() {
               ) : (
                 <>
                   {games.map((el) => (
-                    <GameCard card={el} key={el.name} handlePress={handlePress} width="28%" />
+                    <GameCard card={el} key={el.id} handlePress={handlePress} width="28%" />
                   ))}
                 </>
               )}
@@ -102,4 +104,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default memo(Products);

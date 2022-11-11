@@ -41,31 +41,37 @@ const Table = () => {
 
   return (
     <S.TableContainer>
-      <S.RowContaiener>
-        <S.CategoryName>Name</S.CategoryName>
-        <S.CategoryName>Platform</S.CategoryName>
-        <S.CategoryName>Order date</S.CategoryName>
-        <S.CategoryName>Amount</S.CategoryName>
-        <S.CategoryName>Price ($)</S.CategoryName>
-        <S.CategoryName> </S.CategoryName>
-      </S.RowContaiener>
+      <tbody>
+        <S.RowContaiener>
+          <S.CategoryName>Name</S.CategoryName>
+          <S.CategoryName>Platform</S.CategoryName>
+          <S.CategoryName>Order date</S.CategoryName>
+          <S.CategoryName>Amount</S.CategoryName>
+          <S.CategoryName>Price ($)</S.CategoryName>
+          <S.CategoryName> </S.CategoryName>
+        </S.RowContaiener>
+      </tbody>
       {cartGames.length > 0 &&
         cartGames.map((el) => (
-          <TableItem el={el} changeItem={changeItem} addToDelete={addToDelete} checkbox={checkbox} />
+          <tbody key={el.id}>
+            <TableItem el={el} changeItem={changeItem} addToDelete={addToDelete} checkbox={checkbox} />
+          </tbody>
         ))}
       {cartGames.length > 0 && (
-        <S.RowContaiener>
-          <S.CategoryAttribute />
-          <S.CategoryAttribute />
-          <S.CategoryAttribute />
-          <S.CategoryAttribute />
-          <S.CategoryAttribute />
-          <S.CategoryAttribute style={{ width: "10%" }}>
-            <S.ButtonSubmit disabled={false} onClick={deleteData}>
-              <span>Remove</span>
-            </S.ButtonSubmit>
-          </S.CategoryAttribute>
-        </S.RowContaiener>
+        <tbody>
+          <S.RowContaiener>
+            <S.CategoryAttribute />
+            <S.CategoryAttribute />
+            <S.CategoryAttribute />
+            <S.CategoryAttribute />
+            <S.CategoryAttribute />
+            <S.CategoryAttribute style={{ width: "10%" }}>
+              <S.ButtonSubmit disabled={false} onClick={deleteData}>
+                <span>Remove</span>
+              </S.ButtonSubmit>
+            </S.CategoryAttribute>
+          </S.RowContaiener>
+        </tbody>
       )}
     </S.TableContainer>
   );

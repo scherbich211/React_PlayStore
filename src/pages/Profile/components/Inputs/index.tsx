@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IUser } from "@/types/mockStore";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDebounce } from "@/hooks";
 import InputsWrapper from "./inputs.style";
 import ParseTextarea from "./description";
@@ -32,18 +32,16 @@ const Inputs: React.FC<IChangeUser> = (props) => {
   const {
     control,
     formState: { errors, isValid },
-    setValue,
     watch,
   } = useForm<FormState>({
     resolver: yupResolver(schhema),
     mode: "onChange",
+    defaultValues: {
+      username: props.newUser.login,
+      balance: props.newUser.balance,
+      description: props.newUser.description,
+    },
   });
-
-  useEffect(() => {
-    setValue("username", props.newUser.login);
-    setValue("balance", props.newUser.balance);
-    setValue("description", props.newUser.description);
-  }, []);
 
   const debouncedLogin = useDebounce(watch("username"), 500);
   const debouncedBalance = useDebounce(watch("balance"), 500);
@@ -71,9 +69,8 @@ const Inputs: React.FC<IChangeUser> = (props) => {
     props.setIsValid(isValid);
   }, [isValid, debouncedLogin, debouncedDescription]);
 
-  return (
-    <InputsWrapper>
-      <span>Username</span>
+  const memeorizedUsername = useMemo(
+    () => (
       <Controller
         control={control}
         render={({ field: { onChange, value } }) => (
@@ -87,7 +84,11 @@ const Inputs: React.FC<IChangeUser> = (props) => {
         )}
         name="username"
       />
-      <span style={{ marginTop: "20px" }}>Balance</span>
+    ),
+    [props.newUser.login]
+  );
+  const memeorizedBalance = useMemo(
+    () => (
       <Controller
         control={control}
         render={({ field: { onChange, value } }) => (
@@ -101,12 +102,28 @@ const Inputs: React.FC<IChangeUser> = (props) => {
         )}
         name="balance"
       />
-      <span style={{ marginTop: "20px" }}>Profile description</span>
+    ),
+    [props.newUser.login]
+  );
+  const memeorizedDescription = useMemo(
+    () => (
       <Controller
         name="description"
         render={({ field: { onChange } }) => <ParseTextarea onChange={onChange} value={[props.newUser.description]} />}
         control={control}
       />
+    ),
+    [props.newUser.description]
+  );
+
+  return (
+    <InputsWrapper>
+      <span>Username</span>
+      {memeorizedUsername}
+      <span style={{ marginTop: "20px" }}>Balance</span>
+      {memeorizedBalance}
+      <span style={{ marginTop: "20px" }}>Profile description</span>
+      {memeorizedDescription}
     </InputsWrapper>
   );
 };

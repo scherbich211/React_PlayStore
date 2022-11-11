@@ -8,6 +8,7 @@ import { addCart } from "@/redux/reducers/cart";
 import { Time } from "@/types/alert";
 import { ICartItem } from "@/types/cart";
 import { IGameData } from "@/types/mockStore";
+import React, { memo } from "react";
 import WrapperList from "./gameList.style";
 
 const GameList = () => {
@@ -35,19 +36,19 @@ const GameList = () => {
     );
   };
 
-  return (
-    <WrapperList>
-      {!isLoading && data ? (
-        <>
-          {data.slice(0, 3).map((el) => (
-            <GameCard card={el} key={el.name} handlePress={handlePress} />
-          ))}
-        </>
-      ) : (
-        <Loader />
-      )}
-    </WrapperList>
+  if (isLoading && !data) {
+    <Loader />;
+  }
+  const content = React.useMemo(
+    () => (
+      <WrapperList>
+        {data && data.slice(0, 3).map((el) => <GameCard card={el} key={el.id} handlePress={handlePress} />)}
+      </WrapperList>
+    ),
+    [data]
   );
+
+  return content;
 };
 
-export default GameList;
+export default memo(GameList);

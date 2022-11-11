@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import _ from "lodash";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { useScreenProductsMutation } from "./api/user";
 import { IGameData } from "./types/mockStore";
@@ -64,18 +65,29 @@ export const useOnFocusElement = ({ ref }: Props) => {
   };
 };
 
+const usePrevious = (value: string) => {
+  const ref = useRef("");
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
+
 export const useFilteredGames = (
   name: "PC" | "Playstation 5" | "XBox One",
   filter: IFilter,
   searchText: string
 ): [Array<IGameData>, boolean] => {
   const [games, setGames] = useState<Array<IGameData>>([]);
-
+  const jsonData = JSON.stringify(filter) + name + searchText;
+  const myPreviousState = usePrevious(jsonData);
   const [filterStart, { data, isSuccess, isLoading }] = useScreenProductsMutation();
 
   useEffect(() => {
-    setGames([]);
-    filterStart({ screen: name, text: searchText === "" ? "empty" : searchText });
+    if (myPreviousState !== undefined && !_.isEqual(myPreviousState, jsonData)) {
+      setGames([]);
+      filterStart({ screen: name, text: searchText === "" ? "empty" : searchText });
+    }
   }, [name, filter, searchText]);
 
   useEffect(() => {
@@ -89,3 +101,20 @@ export const useFilteredGames = (
 
   return [games, isLoading];
 };
+
+export const useMemoizedState = <T>(initialValue: T): [T, (val: T) => void] => {
+  const [state, _setState] = useState<T>(initialValue);
+
+  const setState = (newState: T) => {
+    _setState((prev) => {
+      if (!_.isEqual(newState, prev)) {
+        return newState;
+      }
+      return prev;
+    });
+  };
+
+  return [state, setState];
+};
+
+export default useMemoizedState;

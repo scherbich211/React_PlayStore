@@ -26,8 +26,8 @@ export default function SortDropdown<T>(props: IProps<T>) {
         {isOpen && (
           <S.DropDownListContainer>
             <S.DropDownList>
-              {array.map((option) => (
-                <S.ListItem onClick={onOptionClicked(option)} key={Math.random()}>
+              {array.map((option, index) => (
+                <S.ListItem onClick={onOptionClicked(option)} key={index.toString() + option}>
                   {option}
                 </S.ListItem>
               ))}

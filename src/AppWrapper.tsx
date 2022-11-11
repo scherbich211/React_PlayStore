@@ -16,6 +16,7 @@ import AdminEdit from "./components/AdminModal";
 
 const AppWrapper = () => {
   const { type, active } = useAppSelector((state) => state.modal);
+
   return (
     <>
       <NavBar />

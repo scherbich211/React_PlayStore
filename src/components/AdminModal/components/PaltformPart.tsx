@@ -15,7 +15,7 @@ const PlatformPart: React.FC<IProps> = (props) => {
     <>
       <S.Title>Platform</S.Title>
       {platfromArr.map((el) => (
-        <S.ContainerInput>
+        <S.ContainerInput key={el}>
           <span>{el}</span>
           <div
             style={{

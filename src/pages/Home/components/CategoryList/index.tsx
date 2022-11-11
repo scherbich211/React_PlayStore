@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Img, ListItem, WrapperList } from "./categoryList.style";
 import Windows from "../../../../assets/images/windows.svg";
 import Playstation from "../../../../assets/images/playstation.svg";
@@ -32,4 +33,4 @@ const CategoriesList = () => (
   </WrapperList>
 );
 
-export default CategoriesList;
+export default memo(CategoriesList);

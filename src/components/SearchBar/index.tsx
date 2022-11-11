@@ -2,7 +2,7 @@ import { useSearchMutation } from "@/api/user";
 import Loader from "@/components/Loader/loader.styles";
 import { useDebounce } from "@/hooks";
 import { IGameData } from "@/types/mockStore";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { SearchBlock, SearchPanel, StyledList } from "./searchBar.style";
 import { NoElements, ResultElements } from "./searchBarComponents";
 
@@ -96,4 +96,4 @@ const SearchBar: React.FC<IProps> = (props) => {
   );
 };
 
-export default SearchBar;
+export default memo(SearchBar);

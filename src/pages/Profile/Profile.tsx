@@ -6,7 +6,7 @@ import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
 import { changeUser } from "@/redux/reducers/user";
 import { Time } from "@/types/alert";
 import { IUser } from "@/types/mockStore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Avatar from "./components/Avatar";
 import Inputs from "./components/Inputs";
 import * as S from "./profile.style";
@@ -52,6 +52,12 @@ function Profile() {
     }
   }, [isSuccess]);
 
+  const memorizedAvar = useMemo(() => <Avatar newUser={newUser} setNewUser={setNewUser} />, [newUser.profileImage]);
+  const memorizedInputs = useMemo(
+    () => <Inputs newUser={newUser} setNewUser={setNewUser} setIsValid={setIsValid} />,
+    [newUser.balance, newUser.description, newUser.login]
+  );
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -62,8 +68,8 @@ function Profile() {
             <S.Title>{user.login} profile page</S.Title>
             <S.Underline />
             <S.ContentWrapper>
-              <Avatar newUser={newUser} setNewUser={setNewUser} />
-              <Inputs newUser={newUser} setNewUser={setNewUser} setIsValid={setIsValid} />
+              {memorizedAvar}
+              {memorizedInputs}
               <S.ButtonsWrapper>
                 <S.ButtonSubmit onClick={handleSubmit} disabled={!valid}>
                   <span>Save profile</span>

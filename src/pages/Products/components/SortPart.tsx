@@ -1,13 +1,13 @@
 import SortDropdown from "@/components/SortDropdown/SortDropdown";
-import { IFilter, TCriteria, TType, criteria, type, genres, age } from "@/types/products";
-import React from "react";
+import { IFilter, TCriteria, criteria, type, genres, age, TType } from "@/types/products";
+import React, { memo, useCallback } from "react";
 import * as S from "../products.style";
 import * as S1 from "./sortpart.style";
 
 interface IProps {
   name: string;
   filter: IFilter;
-  setFilter: React.Dispatch<React.SetStateAction<IFilter>>;
+  setFilter: (val: IFilter) => void;
 }
 
 const SortPart: React.FC<IProps> = (props) => {
@@ -16,9 +16,16 @@ const SortPart: React.FC<IProps> = (props) => {
   const setSelectedCriteria = (value: TCriteria) => {
     setFilter({ ...filter, selectedCriteria: value });
   };
-  const setSelectedType = (value: TType) => {
-    setFilter({ ...filter, selectedType: value });
-  };
+  // const setSelectedType = (value: TType) => {
+  //   setFilter({ ...filter, selectedType: value });
+  // };
+
+  const setSelectedType = useCallback(
+    (value: TType) => {
+      setFilter({ ...filter, selectedType: value });
+    },
+    [filter]
+  );
 
   return (
     <S.Wrapper width="25%">
@@ -61,4 +68,8 @@ const SortPart: React.FC<IProps> = (props) => {
   );
 };
 
-export default SortPart;
+function arePropsEqual(prevProps: IProps, nextProps: IProps) {
+  return prevProps.name === nextProps.name && JSON.stringify(prevProps.filter) === JSON.stringify(nextProps.filter);
+}
+
+export default memo(SortPart, arePropsEqual);

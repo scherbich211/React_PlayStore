@@ -4,11 +4,11 @@ import SearchBar from "../../components/SearchBar";
 import GameList from "./components/GameList";
 import * as S from "./home.style";
 
-export type THomeComponent = {
+type THomeComponent = {
   title: "Categories" | "New games";
   renderComponent: ReactNode;
 };
-export const homeComponent: THomeComponent[] = [
+const homeComponent: THomeComponent[] = [
   { title: "Categories", renderComponent: <CategoriesList /> },
   { title: "New games", renderComponent: <GameList /> },
 ];

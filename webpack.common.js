@@ -19,6 +19,10 @@ const destPath = path.resolve(__dirname, "./build/"); // ('../Api/wwwroot')
 const assetsPath = "./public";
 const filesThreshold = 8196; // (bytes) threshold for compression, url-loader plugins
 
+// ! Optimization Common
+// 1. const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const optimizedImages = require("next-optimized-images");
+
 /* eslint-disable func-names */
 module.exports = function (env, argv) {
   const isDevServer = env.WEBPACK_SERVE;
@@ -59,13 +63,13 @@ module.exports = function (env, argv) {
             name: "chunk-vendors", // move js-files from node_modules into splitted file [chunk-vendors].js
             test: /[\\/]node_modules[\\/]/, // filtering files that should be included
             priority: -10, // a module can belong to multiple cache groups. The optimization will prefer the cache group with a higher priority
-            chunks: "initial", // type of optimization: [initial | async | all]
+            chunks: "all", // type of optimization: [initial | async | all]
           },
           common: {
             name: "chunk-common", // move reusable nested js-files into splitted file [chunk-common].js
             minChunks: 2, // minimum number of chunks that must share a module before splitting
             priority: -20,
-            chunks: "initial",
+            chunks: "all",
             reuseExistingChunk: true, // If the current chunk contains modules already split out from the main bundle, it will be reused instead of a new one being generated. This can impact the resulting file name of the chunk
           },
         },
@@ -201,6 +205,9 @@ module.exports = function (env, argv) {
     plugins: [
       new webpack.WatchIgnorePlugin({ paths: [/\.d\.ts$/] }), // ignore d.ts files in --watch mode
       new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }), // it adds force-ignoring unused parts of modules like moment/locale/*.js
+
+      // 1. new BundleAnalyzerPlugin(),
+
       new webpack.DefinePlugin({
         // it adds custom Global definition to the project like BASE_URL for index.html
         "process.env": {
@@ -232,6 +239,38 @@ module.exports = function (env, argv) {
         include: "initial",
         fileBlacklist: [/\.map$/, /hot-update\.js$/, /obsolete\.js$/],
       }),
+      new PreloadPlugin([
+        optimizedImages,
+        {
+          // these are the default values so you don't have to provide them if they are good enough for your use-case.
+          // but you can overwrite them here with any valid value you want.
+          inlineImageLimit: 8192,
+          imagesFolder: "./src/assets/images",
+          imagesName: "[name].[ext]",
+          handleImages: ["jpeg", "png", "svg", "jpg"],
+          removeOriginalExtension: false,
+          optimizeImages: true,
+          optimizeImagesInDev: false,
+          mozjpeg: {
+            quality: 80,
+          },
+          optipng: {
+            optimizationLevel: 3,
+          },
+          pngquant: false,
+          gifsicle: {
+            interlaced: true,
+            optimizationLevel: 3,
+          },
+          svgo: {
+            // enable/disable svgo plugins here
+          },
+          webp: {
+            preset: "default",
+            quality: 75,
+          },
+        },
+      ]),
       new PreloadPlugin({
         // it adds 'prefetch' tag for async js-files: https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ
         rel: "prefetch",

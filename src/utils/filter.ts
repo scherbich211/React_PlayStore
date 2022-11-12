@@ -1,7 +1,7 @@
 import { IGameData } from "@/types/mockStore";
 import { IFilter } from "@/types/products";
 
-export enum ECriteria {
+enum ECriteria {
   "Name" = "name",
   "Price" = "price",
   "Rating" = "rating",

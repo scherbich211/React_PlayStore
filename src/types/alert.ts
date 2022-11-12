@@ -1,6 +1,6 @@
 import { IAlertTypes } from "@/components/Alert/alert.style";
 
-export enum Time {
+export const enum Time {
   SUPERLONG = 10000,
   LONG = 5000,
   SHORT = 1000,

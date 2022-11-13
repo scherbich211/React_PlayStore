@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import { Route } from "@/utils/routing";
-import colors from "@/styles/colors";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { changeModalActive, changeModalType } from "@/redux/reducers/modal";
-import { useLogOutMutation } from "@/api/user";
-import { changeAdmin, changeLogOut } from "@/redux/reducers/user";
 import { useNavigate } from "react-router-dom";
-import { changeCart } from "@/redux/reducers/cart";
+import { changeCart } from "../../redux/reducers/cart";
+import { changeAdmin, changeLogOut } from "../../redux/reducers/user";
+import { useLogOutMutation } from "../../api/user";
+import { changeModalActive, changeModalType } from "../../redux/reducers/modal";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import colors from "../../styles/colors";
+import { Route } from "../../utils/routing";
 import { Bars, Nav, NavLink, NavMenu, NavLinkLogo, NavButton } from "./header.style";
 import Dropdown from "../dropdown/Dropdown";
 

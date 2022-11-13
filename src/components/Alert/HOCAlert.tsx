@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { resetSnackBar } from "@/redux/reducers/alert";
 import { useEffect, useState } from "react";
+import { resetSnackBar } from "../../redux/reducers/alert";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { WrapperAlert } from "./alert.style";
 
 function AlertInfo() {

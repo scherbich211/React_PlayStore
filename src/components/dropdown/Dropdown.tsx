@@ -1,5 +1,5 @@
-import { MenuItems } from "@/utils/routing";
 import { useState } from "react";
+import { MenuItems } from "../../utils/routing";
 import * as S from "./dropdown.style";
 
 function Dropdown() {

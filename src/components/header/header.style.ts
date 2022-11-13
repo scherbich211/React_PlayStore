@@ -1,7 +1,7 @@
-import colors from "@/styles/colors";
 import { FaBars } from "react-icons/fa";
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
+import colors from "../../styles/colors";
 
 export const Nav = styled.nav`
   background: ${colors.BLACK};

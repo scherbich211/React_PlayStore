@@ -1,6 +1,6 @@
-import colors from "@/styles/colors";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import colors from "../../styles/colors";
 
 interface IDropdown {
   show: boolean;

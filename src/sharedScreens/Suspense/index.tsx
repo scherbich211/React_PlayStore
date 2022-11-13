@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { LazyExoticComponent, ReactElement, Suspense } from "react";
-import Loader from "@/components/Loader/loader.styles";
+import Loader from "../../components/Loader/loader.styles";
 import ProtectedRoute from "../ProtectRoute/ProtectRoute";
 
 const Content = styled.div`

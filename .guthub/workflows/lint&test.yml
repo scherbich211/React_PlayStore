@@ -3,8 +3,7 @@ name: Lint&Test
 # Controls when the action will run.
 on:
   pull_request:
-  # branches: [ $default-branch ]
-
+    # branches: [ $default-branch ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -12,8 +11,10 @@ on:
 jobs:
   # JOB to run change detection
   # examples here https://github.com/dorny/paths-filter#examples
-  Lint_Test:
+
+  UI-Lint_Build:
     # The type of runner that the job will run on
+    # needs: Get_Changes
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -53,27 +54,24 @@ jobs:
 
       - name: Install node_modules
         if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install #ci faster for installing
+        run: npm ci #ci faster for installing
 
       # example here https://gist.github.com/seeliang/0f0de424d1cdc4541c338f4ee93b7e6a
       - name: Eslint
         run: npx eslint --fix --cache $(printenv CHANGED_FILES | grep  -E '.(js|ts|tsx|jsx|json)$')
 
       # .stylelint-echo is not existed file (just for providing empty-result to stylelint - otherwise an error when no files to lint)
-      # - name: Stylelint
-      #  run: npx stylelint --fix --cache --allow-empty-input $(printenv CHANGED_FILES | grep  -E '.(css|scss|less)$' || echo '.stylelint-echo')
+      - name: Stylelint
+        run: npx stylelint --fix --cache --allow-empty-input $(printenv CHANGED_FILES | grep  -E '.(css|scss|less)$' || echo '.stylelint-echo')
 
       - name: Prettier
         run: npx prettier --write -u --no-error-on-unmatched-pattern $(printenv CHANGED_FILES | grep  -E '.(js|ts|tsx|jsx|json|css|scss|less|html)$')
 
-      - name: Typescript
-        run: yarn tsc
-
       # - name: Test
       #   run: npm test
 
-      # - name: Build
-      #   run: npm run build-prod
+      - name: Build
+        run: npm run build-prod
 
       - name: Push all lint changes
         run: |

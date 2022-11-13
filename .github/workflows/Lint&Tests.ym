@@ -1,0 +1,84 @@
+name: Lint&Test
+
+# Controls when the action will run.
+on:
+  pull_request:
+    # branches: [ $default-branch ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # JOB to run change detection
+  # examples here https://github.com/dorny/paths-filter#examples
+
+  UI-Lint_Build:
+    # The type of runner that the job will run on
+    # needs: Get_Changes
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Setup Node14
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: CheckOut
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+        # example here: https://github.community/t/can-i-process-only-changed-files-with-github-actions/137814/6
+        # details about github_env: https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#example-5
+        # save changed files into env variable and skip removed files
+      - name: GetChanges
+        run: |
+          echo 'CHANGED_FILES<<EOF' >> $GITHUB_ENV
+          git diff --name-only --relative --diff-filter=ACMRTUXB ${{ github.event.pull_request.base.sha }} ${{ github.sha }} >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: Cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+            **/.stylelintcache
+          key: ${{ runner.OS }}-modules-${{ hashFiles('**/package.json') }}
+
+      - name: Install node_modules
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: npm ci #ci faster for installing
+
+      # example here https://gist.github.com/seeliang/0f0de424d1cdc4541c338f4ee93b7e6a
+      - name: Eslint
+        run: npx eslint --fix --cache $(printenv CHANGED_FILES | grep  -E '.(js|ts|tsx|jsx|json)$')
+
+      # .stylelint-echo is not existed file (just for providing empty-result to stylelint - otherwise an error when no files to lint)
+      - name: Stylelint
+        run: npx stylelint --fix --cache --allow-empty-input $(printenv CHANGED_FILES | grep  -E '.(css|scss|less)$' || echo '.stylelint-echo')
+
+      - name: Prettier
+        run: npx prettier --write -u --no-error-on-unmatched-pattern $(printenv CHANGED_FILES | grep  -E '.(js|ts|tsx|jsx|json|css|scss|less|html)$')
+
+      # - name: Test
+      #   run: npm test
+
+      - name: Build
+        run: npm run build-prod
+
+      - name: Push all lint changes
+        run: |
+          git config advice.ignoredHook false
+          git config user.name 'lint-bot'
+          git config user.email 'lint-bot@users.noreply.github.com'
+          git add --all
+          git commit -m "Prettify frontend files" && git push || echo "No changes to commit"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

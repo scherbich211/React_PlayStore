@@ -16,8 +16,7 @@
     "lint-es": "./node_modules/.bin/eslint --fix --cache ./**/*.{js,jsx,ts,tsx,json} && prettier --write **/*.{js,jsx,ts,tsx,json,html} --loglevel warn",
     "lint-styles": "./node_modules/.bin/stylelint --fix --cache ./**/*.{css,scss,less} && prettier --write **/*.{css,scss,less} --loglevel warn",
     "lint-md": "./node_modules/.bin/markdownlint --fix **/*.md --ignore node_modules",
-    "prepare": "husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks && git config --unset core.hooksPath",
-    "postinstall": "npm audit fix"
+    "prepare": "husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks && git config --unset core.hooksPath"
   },
   "engines": {
     "node": ">=12.22.0 <13 || >=14.17.0 <17"
@@ -119,11 +118,8 @@
     "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.14",
     "axios": "^0.27.2",
-    "imagemin-mozjpeg": "^6.0.0",
-    "imagemin-optipng": "^5.2.1",
-    "imagemin-svgo": "^10.0.1",
     "lodash": "^4.17.21",
-    "next-optimized-images": "^1.4.2",
+    "next-optimized-images": "^2.6.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.36.1",

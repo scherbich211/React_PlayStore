@@ -18,6 +18,7 @@ const AboutContainer = React.lazy(() => import("./pages/About/About"));
 
 const AppWrapper = () => {
   const { type, active } = useAppSelector((state) => state.modal);
+  console.log(1);
 
   return (
     <>

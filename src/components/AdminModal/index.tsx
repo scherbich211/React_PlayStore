@@ -119,9 +119,9 @@ const AdminEdit: React.FC = () => {
         </S.RowWrapper>
         <ButtonsPart
           editCard={editCard}
-          name={getValues("name")}
-          price={getValues("price")}
-          genre={getValues("category")}
+          name={watch("name")}
+          price={watch("price")}
+          genre={watch("category")}
           route={imageSrc}
           descriptionBack={text}
           age={age}

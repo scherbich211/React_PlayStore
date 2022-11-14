@@ -13,7 +13,7 @@ interface IProps {
 
 const GameCard: React.FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
-  const { isAdmin } = useAppSelector((state) => state.user);
+  const { isAdmin, isSignedIn } = useAppSelector((state) => state.user);
   const { name, route, price, descriptionBack, age, rating } = props.card;
 
   const chooseModal = () => {
@@ -40,9 +40,12 @@ const GameCard: React.FC<IProps> = (props) => {
         <S.Back>
           <S.BackText>{descriptionBack}</S.BackText>
           <S.BackTextAge>{age}+</S.BackTextAge>
-          <S.BackButton onClick={() => props.handlePress(props.card)}>
-            <span>Add to cart</span>
-          </S.BackButton>
+          {isSignedIn && (
+            <S.BackButton onClick={() => props.handlePress(props.card)}>
+              <span>Add to cart</span>
+            </S.BackButton>
+          )}
+
           {isAdmin && (
             <S.BackButton onClick={chooseModal}>
               <span>Edit</span>

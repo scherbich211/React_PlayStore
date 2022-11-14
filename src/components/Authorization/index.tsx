@@ -10,6 +10,8 @@ import { changeModalActive } from "@/redux/reducers/modal";
 import { changeAdmin, changeUser, changeUserIsSignedIn } from "@/redux/reducers/user";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Route } from "@/utils/routing";
+import { setSnackBar } from "@/redux/reducers/alert";
+import { Time } from "@/types/alert";
 import CustomInput from "../CustomInput";
 import * as S from "./authorization.style";
 
@@ -46,8 +48,10 @@ const Authorization: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const [signIn, { isSuccess: signInSucccess, data: signInData }] = useSignInMutation();
-  const [signUp, { isSuccess: signUpSucccess, data: signUpData }] = useSignUpMutation();
+  const [signIn, { isSuccess: signInSucccess, data: signInData, isError: signInError, isLoading: signInLoading }] =
+    useSignInMutation();
+  const [signUp, { isSuccess: signUpSucccess, data: signUpData, isError: signUpError, isLoading: signUpLoading }] =
+    useSignUpMutation();
 
   const signUpProp: boolean = type === "signUp";
 
@@ -139,6 +143,18 @@ const Authorization: React.FC = () => {
     );
   }, [type, active]);
 
+  useEffect(() => {
+    if (signInError || signUpError) {
+      dispatch(
+        setSnackBar({
+          time: Time.MEDIUM,
+          message: "Error, Try Again",
+          notificationType: "error",
+        })
+      );
+    }
+  }, [signInError, signUpError]);
+
   return (
     <>
       <S.RowWrapper style={{ marginBottom: "20px" }}>
@@ -206,7 +222,11 @@ const Authorization: React.FC = () => {
           )}
         </>
       )}
-      <S.ButtonSubmit disabled={!isValid} style={{ marginTop: "20px" }} onClick={handleSubmit}>
+      <S.ButtonSubmit
+        disabled={!isValid || signInLoading || signUpLoading}
+        style={{ marginTop: "20px" }}
+        onClick={handleSubmit}
+      >
         <span>Submit</span>
       </S.ButtonSubmit>
     </>
